@@ -131,6 +131,34 @@ internal class ByteArrayOperationsTest {
     }
 
     @Test
+    fun getLong(){
+        val array = byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte())
+        val long1 = array.getLong(0)
+        val long2 = array.getLong(0, ByteOrder.BIG_ENDIAN)
+        val long3 = array.getLong(0, ByteOrder.LITTLE_ENDIAN)
+        assertEquals(-8690466096370457209, long1)
+        assertEquals(-8690466096370457209, long2)
+        assertEquals(-8690466096370457209, long3)
+        assertFails {
+            array.getLong(7)
+        }
+    }
+
+    @Test
+    fun getULong(){
+        val array = byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte())
+        val long1 = array.getULong(0)
+        val long2 = array.getULong(0, ByteOrder.BIG_ENDIAN)
+        val long3 = array.getULong(0, ByteOrder.LITTLE_ENDIAN)
+        assertEquals(9756277977339094407UL, long1)
+        assertEquals(9756277977339094407UL, long2)
+        assertEquals(9756277977339094407UL, long3)
+        assertFails {
+            array.getULong(7)
+        }
+    }
+
+    @Test
     fun getInt() {
         val array = byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte())
         val int1 = array.getInt(0, IntFormat.INT8)
