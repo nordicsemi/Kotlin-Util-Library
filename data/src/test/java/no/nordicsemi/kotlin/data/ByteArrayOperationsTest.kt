@@ -40,6 +40,25 @@ import kotlin.test.assertFails
 internal class ByteArrayOperationsTest {
 
     @Test
+    fun longToByteArray() {
+        // 0x87_65_43_21_21_43_65_87 as a signed 64-bit value is -8690466096370457209
+        val value: Long = -8690466096370457209L // 0x87_65_43_21_21_43_65_87
+        val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
+        val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN)
+        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), bigEndian)
+        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), littleEndian)
+    }
+
+    @Test
+    fun uLongToByteArray() {
+        val value = 0x8765432121436587u
+        val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
+        val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN)
+        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), bigEndian)
+        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), littleEndian)
+    }
+
+    @Test
     fun intToByteArray() {
         val value: Int = -2023406815 // 0x87_65_43_21
         val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
