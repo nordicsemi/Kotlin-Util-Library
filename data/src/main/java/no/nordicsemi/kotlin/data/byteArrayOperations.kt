@@ -49,16 +49,13 @@ import kotlin.math.pow
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @throws IllegalArgumentException If the length is not within the range of 1 to [Long.SIZE_BYTES].
  */
-fun Long.toByteArray(
-    order: ByteOrder = ByteOrder.BIG_ENDIAN,
-    length: Int = Long.SIZE_BYTES
-): ByteArray {
+fun Long.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = Long.SIZE_BYTES): ByteArray {
     require(length > 0 && length <= Long.SIZE_BYTES) {
         "Length must be between 1 and ${Long.SIZE_BYTES} bytes, got $length"
     }
     return when (order) {
         ByteOrder.BIG_ENDIAN -> ByteArray(length) { (this ushr (((length - 1) * 8) - it * 8)).toByte() }
-        else -> ByteArray(length) { (this ushr (it * 8)).toByte() }
+        else ->                 ByteArray(length) { (this ushr (it * 8)).toByte() }
     }
 }
 
@@ -72,10 +69,7 @@ fun Long.toByteArray(
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @throws IllegalArgumentException If the length is not within the range of 1 to [ULong.SIZE_BYTES].
  */
-fun ULong.toByteArray(
-    order: ByteOrder = ByteOrder.BIG_ENDIAN,
-    length: Int = ULong.SIZE_BYTES
-): ByteArray {
+fun ULong.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = ULong.SIZE_BYTES): ByteArray {
     require(length > 0 && length <= ULong.SIZE_BYTES) {
         "Length must be between 1 and ${ULong.SIZE_BYTES} bytes, got $length"
     }
@@ -95,16 +89,13 @@ fun ULong.toByteArray(
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @throws IllegalArgumentException If the length is not within the range of 1 to [Int.SIZE_BYTES].
  */
-fun Int.toByteArray(
-    order: ByteOrder = ByteOrder.BIG_ENDIAN,
-    length: Int = Int.SIZE_BYTES
-): ByteArray {
+fun Int.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = Int.SIZE_BYTES): ByteArray {
     require(length > 0 && length <= Int.SIZE_BYTES) {
         "Length must be between 1 and ${Int.SIZE_BYTES} bytes, got $length"
     }
     return when (order) {
         ByteOrder.BIG_ENDIAN -> ByteArray(length) { (this ushr (((length - 1) * 8) - it * 8)).toByte() }
-        else -> ByteArray(length) { (this ushr (it * 8)).toByte() }
+        else ->                 ByteArray(length) { (this ushr (it * 8)).toByte() }
     }
 }
 
@@ -118,10 +109,7 @@ fun Int.toByteArray(
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @throws IllegalArgumentException If the length is not within the range of 1 to [UInt.SIZE_BYTES].
  */
-fun UInt.toByteArray(
-    order: ByteOrder = ByteOrder.BIG_ENDIAN,
-    length: Int = UInt.SIZE_BYTES
-): ByteArray {
+fun UInt.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = UInt.SIZE_BYTES): ByteArray {
     require(length > 0 && length <= UInt.SIZE_BYTES) {
         "Length must be between 1 and ${UInt.SIZE_BYTES} bytes, got $length"
     }
@@ -137,7 +125,7 @@ fun UInt.toByteArray(
  */
 fun Short.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN) = when (order) {
     ByteOrder.BIG_ENDIAN -> ByteArray(2) { (this ushr (8 - it * 8)).toByte() }
-    else -> ByteArray(2) { (this ushr (it * 8)).toByte() }
+    else ->                 ByteArray(2) { (this ushr (it * 8)).toByte() }
 }
 
 /**
@@ -146,7 +134,7 @@ fun Short.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN) = when (order) {
  */
 fun UShort.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN) = when (order) {
     ByteOrder.BIG_ENDIAN -> ByteArray(2) { (this shr (8 - it * 8)).toByte() }
-    else -> ByteArray(2) { (this shr (it * 8)).toByte() }
+    else ->                 ByteArray(2) { (this shr (it * 8)).toByte() }
 }
 
 /**
@@ -167,25 +155,18 @@ fun UByte.toByteArray() = ByteArray(1) { this.toByte() }
 enum class IntFormat {
     /** 8-bit unsigned integer. */
     UINT8,
-
     /** 16-bit unsigned integer. */
     UINT16,
-
     /** 24-bit unsigned integer. */
     UINT24,
-
     /** 32-bit unsigned integer. */
     UINT32,
-
     /** 8-bit signed integer. */
     INT8,
-
     /** 16-bit signed integer. */
     INT16,
-
     /** 24-bit signed integer. */
     INT24,
-
     /** 32-bit signed integer. */
     INT32;
 
@@ -207,10 +188,8 @@ enum class IntFormat {
 enum class FloatFormat {
     /** 32-bit IEEE 754 floating point. */
     IEEE_754_SINGLE_PRECISION,
-
     /** 32-bit IEEE 11073-20601 floating point. */
     IEEE_11073_32_BIT,
-
     /** 16-bit IEEE 11073-20601 floating point. */
     IEEE_11073_16_BIT;
 
@@ -295,36 +274,30 @@ fun ByteArray.getInt(
     }
     return when (format) {
         IntFormat.UINT8 -> this[offset].toInt() and 0xFF
-        IntFormat.UINT16 -> ByteBuffer.wrap(this, offset, format.length)
-            .order(order).short.toInt() and 0xFFFF
-
+        IntFormat.UINT16 -> ByteBuffer.wrap(this, offset, format.length).order(order).short.toInt() and 0xFFFF
         IntFormat.UINT24 -> when (order) {
             ByteOrder.BIG_ENDIAN ->
                 (this[offset + 0].toInt() and 0xFF shl 16) or
-                        (this[offset + 1].toInt() and 0xFF shl 8) or
-                        (this[offset + 2].toInt() and 0xFF)
-
+                (this[offset + 1].toInt() and 0xFF shl 8) or
+                (this[offset + 2].toInt() and 0xFF)
             else ->
                 (this[offset + 2].toInt() and 0xFF shl 16) or
-                        (this[offset + 1].toInt() and 0xFF shl 8) or
-                        (this[offset + 0].toInt() and 0xFF)
+                (this[offset + 1].toInt() and 0xFF shl 8) or
+                (this[offset + 0].toInt() and 0xFF)
         }
-
         IntFormat.UINT32 -> ByteBuffer.wrap(this, offset, format.length).order(order).int
         IntFormat.INT8 -> this[offset].toInt()
         IntFormat.INT16 -> ByteBuffer.wrap(this, offset, format.length).order(order).short.toInt()
         IntFormat.INT24 -> when (order) {
             ByteOrder.BIG_ENDIAN ->
                 (this[offset + 0].toInt() shl 16) or
-                        (this[offset + 1].toInt() and 0xFF shl 8) or
-                        (this[offset + 2].toInt() and 0xFF)
-
+                (this[offset + 1].toInt() and 0xFF shl 8) or
+                (this[offset + 2].toInt() and 0xFF)
             else ->
                 (this[offset + 2].toInt() shl 16) or
-                        (this[offset + 1].toInt() and 0xFF shl 8) or
-                        (this[offset + 0].toInt() and 0xFF)
+                (this[offset + 1].toInt() and 0xFF shl 8) or
+                (this[offset + 0].toInt() and 0xFF)
         }
-
         IntFormat.INT32 -> ByteBuffer.wrap(this, offset, format.length).order(order).int
     }
 }
@@ -413,9 +386,7 @@ fun ByteArray.getFloat(
         throw IndexOutOfBoundsException("Cannot return a $format Float from an array of size $size from offset $offset")
     }
     return when (format) {
-        FloatFormat.IEEE_754_SINGLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length)
-            .order(order).float
-
+        FloatFormat.IEEE_754_SINGLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length).order(order).float
         FloatFormat.IEEE_11073_32_BIT -> {
             val raw = getInt(offset, IntFormat.INT32, order)
             // The following information is defined in https://www.iso.org/standard/84781.html
@@ -429,7 +400,6 @@ fun ByteArray.getFloat(
             val value = mantissa * 10.0.pow(exponent)
             value.toFloat()
         }
-
         FloatFormat.IEEE_11073_16_BIT -> {
             val raw = getInt(offset, IntFormat.INT16, order)
             // The following information is defined in https://www.iso.org/standard/84781.html
@@ -463,7 +433,6 @@ fun ByteArray.getDouble(
         throw IndexOutOfBoundsException("Cannot return a Double from an array of size $size from offset $offset")
     }
     return when (format) {
-        DoubleFormat.IEEE_754_DOUBLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length)
-            .order(order).double
+        DoubleFormat.IEEE_754_DOUBLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length).order(order).double
     }
 }
