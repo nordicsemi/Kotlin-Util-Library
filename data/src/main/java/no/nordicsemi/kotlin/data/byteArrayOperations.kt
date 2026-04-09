@@ -38,6 +38,48 @@ import java.nio.ByteOrder
 import kotlin.math.pow
 
 /**
+ * Converts a `Long` to a byte array using the given endianness.
+ *
+ * The optional [length] parameter allows you to specify the actual length of the field, to convert
+ * 8-bit, 16-bit, 24-bit, 32-bit, 40-bit, 48-bit or 54-bit integers stored in a 'Long' to a byte
+ * array.
+ *
+ * @param length The length of the field, in bytes, within the range of 1-[Long.SIZE_BYTES] with
+ * default value equal to [Long.SIZE_BYTES] bytes.
+ * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
+ * @throws IllegalArgumentException If the length is not within the range of 1 to [Long.SIZE_BYTES].
+ */
+fun Long.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = Long.SIZE_BYTES): ByteArray {
+    require(length > 0 && length <= Long.SIZE_BYTES) {
+        "Length must be between 1 and ${Long.SIZE_BYTES} bytes, got $length"
+    }
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> ByteArray(length) { (this ushr (((length - 1) * 8) - it * 8)).toByte() }
+        else ->                 ByteArray(length) { (this ushr (it * 8)).toByte() }
+    }
+}
+
+/**
+ * Converts a `ULong` to a byte array using the given endianness.
+ *
+ * The optional [length] parameter allows you to specify the actual length of the field,
+ * to convert 8-bit, 16-bit or 24-bit integers stored in an `UInt` to a byte array.
+ * @param length The length of the field, in bytes, within the range of 1-[ULong.SIZE_BYTES] with
+ * default value equal to [ULong.SIZE_BYTES] bytes.
+ * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
+ * @throws IllegalArgumentException If the length is not within the range of 1 to [ULong.SIZE_BYTES].
+ */
+fun ULong.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = ULong.SIZE_BYTES): ByteArray {
+    require(length > 0 && length <= ULong.SIZE_BYTES) {
+        "Length must be between 1 and ${ULong.SIZE_BYTES} bytes, got $length"
+    }
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> ByteArray(length) { (this shr (((length - 1) * 8) - it * 8)).toByte() }
+        else -> ByteArray(length) { (this shr (it * 8)).toByte() }
+    }
+}
+
+/**
  * Converts an `Int` to a byte array using the given endianness.
  *
  * The optional [length] parameter allows you to specify the actual length of the field,
