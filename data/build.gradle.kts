@@ -31,7 +31,7 @@
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-//    alias(libs.plugins.nordic.nexus.jvm)
+    alias(libs.plugins.nordic.nexus.kmp)
 }
 
 group = "no.nordicsemi.kotlin"
@@ -51,18 +51,18 @@ kotlin {
     }
 }
 
-//nordicNexusPublishing {
-//    POM_ARTIFACT_ID = "data"
-//    POM_NAME = "Kotlin data utils."
-//    POM_DESCRIPTION = "Set of extension methods for writing and reading bytes to and from a ByteArray."
-//    POM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
-//    POM_SCM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
-//    POM_SCM_CONNECTION = "scm:git@github.com:NordicSemiconductor/Kotlin-Util-Library.git"
-//    POM_SCM_DEV_CONNECTION = "scm:git@github.com:NordicSemiconductor/Kotlin-Util-Library.git"
-//}
+nordicNexusPublishing {
+    POM_ARTIFACT_ID = "data"
+    POM_NAME = "Kotlin data utils."
+    POM_DESCRIPTION = "Set of extension methods for writing and reading bytes to and from a ByteArray."
+    POM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
+    POM_SCM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
+    POM_SCM_CONNECTION = "scm:git@github.com:NordicSemiconductor/Kotlin-Util-Library.git"
+    POM_SCM_DEV_CONNECTION = "scm:git@github.com:NordicSemiconductor/Kotlin-Util-Library.git"
+}
 
-//dokka {
-//    dokkaSourceSets.configureEach {
-//        includes.from("Module.md")
-//    }
-//}
+dokka {
+    dokkaSourceSets.configureEach {
+        includes.from("Module.md")
+    }
+}
