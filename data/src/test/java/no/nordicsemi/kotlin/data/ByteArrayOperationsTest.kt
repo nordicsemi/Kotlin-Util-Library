@@ -41,21 +41,22 @@ internal class ByteArrayOperationsTest {
 
     @Test
     fun longToByteArray() {
-        // 0x87_65_43_21_21_43_65_87 as a signed 64-bit value is -8690466096370457209
-        val value: Long = -8690466096370457209L // 0x87_65_43_21_21_43_65_87
+        // 0x11_22_33_44_55_66_77_88L as a signed 64-bit value is 1234605616436508552
+        val value = 1234605616436508552L // 0x11_22_33_44_55_66_77_88L
         val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
         val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN)
-        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), bigEndian)
-        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), littleEndian)
+        assertContentEquals(byteArrayOf(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88.toByte()), bigEndian)
+        assertContentEquals(byteArrayOf(0x88.toByte(), 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11), littleEndian)
     }
 
     @Test
     fun uLongToByteArray() {
-        val value = 0x8765432121436587u
+        // 0x11_22_33_44_55_66_77_88L as a signed 64-bit value is 1234605616436508552
+        val value = 1234605616436508552UL
         val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
         val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN)
-        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), bigEndian)
-        assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte()), littleEndian)
+        assertContentEquals(byteArrayOf(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88.toByte()), bigEndian)
+        assertContentEquals(byteArrayOf(0x88.toByte(), 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11), littleEndian)
     }
 
     @Test
@@ -132,13 +133,13 @@ internal class ByteArrayOperationsTest {
 
     @Test
     fun getLong(){
-        val array = byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte())
+        val array = byteArrayOf(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88.toByte())
         val long1 = array.getLong(0)
         val long2 = array.getLong(0, ByteOrder.BIG_ENDIAN)
         val long3 = array.getLong(0, ByteOrder.LITTLE_ENDIAN)
-        assertEquals(-8690466096370457209, long1)
-        assertEquals(-8690466096370457209, long2)
-        assertEquals(-8690466096370457209, long3)
+        assertEquals(1234605616436508552L, long1)
+        assertEquals(1234605616436508552L, long2)
+        assertEquals(-8613303245920329199L, long3)
         assertFails {
             array.getLong(7)
         }
@@ -146,13 +147,13 @@ internal class ByteArrayOperationsTest {
 
     @Test
     fun getULong(){
-        val array = byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte())
+        val array = byteArrayOf(0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88.toByte())
         val long1 = array.getULong(0)
         val long2 = array.getULong(0, ByteOrder.BIG_ENDIAN)
         val long3 = array.getULong(0, ByteOrder.LITTLE_ENDIAN)
-        assertEquals(9756277977339094407UL, long1)
-        assertEquals(9756277977339094407UL, long2)
-        assertEquals(9756277977339094407UL, long3)
+        assertEquals(1234605616436508552UL, long1)
+        assertEquals(1234605616436508552UL, long2)
+        assertEquals(9833440827789222417UL, long3)
         assertFails {
             array.getULong(7)
         }
