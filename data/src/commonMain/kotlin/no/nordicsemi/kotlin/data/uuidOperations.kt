@@ -33,8 +33,7 @@
 
 package no.nordicsemi.kotlin.data
 
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
+import okio.Buffer
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -44,20 +43,23 @@ import kotlin.uuid.Uuid
  */
 // TODO: 2021-08-26: Add support for 16-bit and 32-bit UUIDs.
 @OptIn(ExperimentalUuidApi::class)
-fun Uuid.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN): ByteArray = ByteBuffer.wrap(ByteArray(16))
-    .order(order)
-    .apply {
-        toLongs { mostSignificantBits, leastSignificantBits ->
-            if (order == ByteOrder.BIG_ENDIAN) {
-                putLong(mostSignificantBits)
-                putLong(leastSignificantBits)
-            } else {
-                putLong(leastSignificantBits)
-                putLong(mostSignificantBits)
+fun Uuid.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN): ByteArray {
+    val buffer = Buffer()
+    toLongs { mostSignificantBits, leastSignificantBits ->
+        when (order) {
+            ByteOrder.BIG_ENDIAN -> {
+                buffer.writeLong(mostSignificantBits)
+                buffer.writeLong(leastSignificantBits)
+            }
+
+            ByteOrder.LITTLE_ENDIAN -> {
+                buffer.writeLongLe(leastSignificantBits)
+                buffer.writeLongLe(mostSignificantBits)
             }
         }
     }
-    .array()
+    return buffer.readByteArray()
+}
 
 /**
  * Converts a byte array to a 128-bit Uuid.
@@ -71,12 +73,12 @@ fun ByteArray.getUuid(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): Uui
     require(offset >= 0 && size >= offset + 16) {
         throw IndexOutOfBoundsException("Cannot return a Uuid from an array of size $size from offset $offset")
     }
-    val buffer = ByteBuffer.wrap(this).order(order).position(offset)
+    val buffer = Buffer().write(this, offset, 16)
     return when (order) {
-        ByteOrder.BIG_ENDIAN -> Uuid.fromLongs(buffer.long, buffer.long)
-        else -> {
-            val leastSignificantBits = buffer.long
-            val mostSignificantBits = buffer.long
+        ByteOrder.BIG_ENDIAN -> Uuid.fromLongs(buffer.readLong(), buffer.readLong())
+        ByteOrder.LITTLE_ENDIAN -> {
+            val leastSignificantBits = buffer.readLongLe()
+            val mostSignificantBits = buffer.readLongLe()
             Uuid.fromLongs(mostSignificantBits, leastSignificantBits)
         }
     }
