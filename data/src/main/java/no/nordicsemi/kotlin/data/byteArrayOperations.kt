@@ -217,6 +217,44 @@ enum class DoubleFormat {
 }
 
 /**
+ * Returns a Long from a byte array with a given offset.
+ *
+ * @param offset The index to start from.
+ * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
+ * @return Long.
+ * @throws IllegalArgumentException If the length of byte array is less than the offset plus
+ * Long.SIZE_BYTES.
+ */
+fun ByteArray.getLong(
+    offset: Int,
+    order: ByteOrder = ByteOrder.BIG_ENDIAN
+): Long {
+    require(offset >= 0 && size >= offset + Long.SIZE_BYTES) {
+        throw IndexOutOfBoundsException("Cannot return a Long from an array of size $size from offset $offset")
+    }
+    return ByteBuffer.wrap(this, offset, Long.SIZE_BYTES).order(order).long
+}
+
+/**
+ * Returns a ULong from a byte array with a given offset.
+ *
+ * @param offset The index to start from.
+ * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
+ * @return ULong.
+ * @throws IllegalArgumentException If the length of byte array is less than the offset plus
+ * ULong.SIZE_BYTES.
+ */
+fun ByteArray.getULong(
+    offset: Int,
+    order: ByteOrder = ByteOrder.BIG_ENDIAN
+): ULong {
+    require(offset >= 0 && size >= offset + ULong.SIZE_BYTES) {
+        throw IndexOutOfBoundsException("Cannot return a ULong from an array of size $size from offset $offset")
+    }
+    return ByteBuffer.wrap(this, offset, ULong.SIZE_BYTES).order(order).long.toULong()
+}
+
+/**
  * Returns an Int from a byte array with a given offset.
  *
  * @param offset The index to start from.
