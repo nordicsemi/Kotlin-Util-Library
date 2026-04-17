@@ -4,7 +4,7 @@ This repository contains set of Kotlin-only (no Android dependency) libraries fo
 
 ## Data
 
-![Maven Central Version](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/data)
+![Maven Central Version](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/data)  ![Kotlin Multiplatform](https://img.shields.io/badge/kmp-ready-green)
 
 Kotlin library for data manipulation.
 
