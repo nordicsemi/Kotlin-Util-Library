@@ -29,39 +29,19 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-plugins {
-    alias(libs.plugins.nordic.kotlin.kmp)
-    alias(libs.plugins.nordic.nexus.kmp)
-}
+package no.nordicsemi.kotlin.data
 
-group = "no.nordicsemi.kotlin"
+/**
+ * Java's ByteOrder for okio
+ */
+enum class ByteOrder {
+    /**
+     * Big-endian byte order (most significant byte first)
+     */
+    BIG_ENDIAN,
 
-kotlin {
-    jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosArm64()
-    sourceSets.commonMain.dependencies {
-        implementation(libs.okio)
-    }
-    sourceSets.commonTest.dependencies {
-        implementation(kotlin("test"))
-    }
-}
-
-nordicNexusPublishing {
-    POM_ARTIFACT_ID = "data"
-    POM_NAME = "Kotlin data utils."
-    POM_DESCRIPTION = "Set of extension methods for writing and reading bytes to and from a ByteArray."
-    POM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
-    POM_SCM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
-    POM_SCM_CONNECTION = "scm:git@github.com:NordicSemiconductor/Kotlin-Util-Library.git"
-    POM_SCM_DEV_CONNECTION = "scm:git@github.com:NordicSemiconductor/Kotlin-Util-Library.git"
-}
-
-dokka {
-    dokkaSourceSets.configureEach {
-        includes.from("Module.md")
-    }
+    /**
+     *  Little-endian byte order (least significant byte first)
+     */
+    LITTLE_ENDIAN,
 }

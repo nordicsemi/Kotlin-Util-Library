@@ -1,7 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.nordic.nexus.jvm) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.nordic.kotlin.kmp) apply false
+    alias(libs.plugins.nordic.nexus.kmp) apply false
 
     // This plugin is used to generate Dokka documentation.
     alias(libs.plugins.kotlin.dokka) apply false
@@ -13,6 +14,6 @@ plugins {
 // Configure main Dokka page
 dokka {
     pluginsConfiguration.html {
-        homepageLink.set("https://github.com/NordicSemiconductor/Kotlin-Util-Library")
+        homepageLink.set("https://github.com/nordicsemi/Kotlin-Util-Library")
     }
 }

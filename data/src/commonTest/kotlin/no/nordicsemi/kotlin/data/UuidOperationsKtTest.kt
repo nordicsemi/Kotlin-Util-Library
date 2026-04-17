@@ -31,7 +31,6 @@
 
 package no.nordicsemi.kotlin.data
 
-import java.nio.ByteOrder
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals

@@ -33,8 +33,7 @@
 
 package no.nordicsemi.kotlin.data
 
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
+import okio.Buffer
 import kotlin.math.pow
 
 /**
@@ -232,7 +231,11 @@ fun ByteArray.getLong(
     require(offset >= 0 && size >= offset + Long.SIZE_BYTES) {
         throw IndexOutOfBoundsException("Cannot return a Long from an array of size $size from offset $offset")
     }
-    return ByteBuffer.wrap(this, offset, Long.SIZE_BYTES).order(order).long
+    val buffer = Buffer().write(this, offset, Long.SIZE_BYTES)
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> buffer.readLong()
+        ByteOrder.LITTLE_ENDIAN -> buffer.readLongLe()
+    }
 }
 
 /**
@@ -251,7 +254,11 @@ fun ByteArray.getULong(
     require(offset >= 0 && size >= offset + ULong.SIZE_BYTES) {
         throw IndexOutOfBoundsException("Cannot return a ULong from an array of size $size from offset $offset")
     }
-    return ByteBuffer.wrap(this, offset, ULong.SIZE_BYTES).order(order).long.toULong()
+    val buffer = Buffer().write(this, offset, ULong.SIZE_BYTES)
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> buffer.readLong().toULong()
+        ByteOrder.LITTLE_ENDIAN -> buffer.readLongLe().toULong()
+    }
 }
 
 /**
@@ -274,7 +281,13 @@ fun ByteArray.getInt(
     }
     return when (format) {
         IntFormat.UINT8 -> this[offset].toInt() and 0xFF
-        IntFormat.UINT16 -> ByteBuffer.wrap(this, offset, format.length).order(order).short.toInt() and 0xFFFF
+        IntFormat.UINT16 -> {
+            val buffer = Buffer().write(this, offset, format.length)
+            when (order) {
+                ByteOrder.BIG_ENDIAN -> buffer.readShort().toInt() and 0xFFFF
+                ByteOrder.LITTLE_ENDIAN -> buffer.readShortLe().toInt() and 0xFFFF
+            }
+        }
         IntFormat.UINT24 -> when (order) {
             ByteOrder.BIG_ENDIAN ->
                 (this[offset + 0].toInt() and 0xFF shl 16) or
@@ -285,9 +298,21 @@ fun ByteArray.getInt(
                 (this[offset + 1].toInt() and 0xFF shl 8) or
                 (this[offset + 0].toInt() and 0xFF)
         }
-        IntFormat.UINT32 -> ByteBuffer.wrap(this, offset, format.length).order(order).int
+        IntFormat.UINT32 -> {
+            val buffer = Buffer().write(this, offset, format.length)
+            when (order) {
+                ByteOrder.BIG_ENDIAN -> buffer.readInt()
+                ByteOrder.LITTLE_ENDIAN -> buffer.readIntLe()
+            }
+        }
         IntFormat.INT8 -> this[offset].toInt()
-        IntFormat.INT16 -> ByteBuffer.wrap(this, offset, format.length).order(order).short.toInt()
+        IntFormat.INT16 -> {
+            val buffer = Buffer().write(this, offset, format.length)
+            when (order) {
+                ByteOrder.BIG_ENDIAN -> buffer.readShort().toInt()
+                ByteOrder.LITTLE_ENDIAN -> buffer.readShortLe().toInt()
+            }
+        }
         IntFormat.INT24 -> when (order) {
             ByteOrder.BIG_ENDIAN ->
                 (this[offset + 0].toInt() shl 16) or
@@ -298,7 +323,13 @@ fun ByteArray.getInt(
                 (this[offset + 1].toInt() and 0xFF shl 8) or
                 (this[offset + 0].toInt() and 0xFF)
         }
-        IntFormat.INT32 -> ByteBuffer.wrap(this, offset, format.length).order(order).int
+        IntFormat.INT32 -> {
+            val buffer = Buffer().write(this, offset, format.length)
+            when (order) {
+                ByteOrder.BIG_ENDIAN -> buffer.readInt()
+                ByteOrder.LITTLE_ENDIAN -> buffer.readIntLe()
+            }
+        }
     }
 }
 
@@ -349,7 +380,11 @@ fun ByteArray.getShort(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): Sh
     require(offset >= 0 && size >= offset + Short.SIZE_BYTES) {
         throw IndexOutOfBoundsException("Cannot return a Short from an array of size $size from offset $offset")
     }
-    return ByteBuffer.wrap(this, offset, Short.SIZE_BYTES).order(order).short
+    val buffer = Buffer().write(this, offset, Short.SIZE_BYTES)
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> buffer.readShort()
+        ByteOrder.LITTLE_ENDIAN -> buffer.readShortLe()
+    }
 }
 
 /**
@@ -364,7 +399,11 @@ fun ByteArray.getUShort(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): U
     require(offset >= 0 && size >= offset + UShort.SIZE_BYTES) {
         throw IndexOutOfBoundsException("Cannot return a UShort from an array of size $size from offset $offset")
     }
-    return ByteBuffer.wrap(this, offset, UShort.SIZE_BYTES).order(order).short.toUShort()
+    val buffer = Buffer().write(this, offset, UShort.SIZE_BYTES)
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> buffer.readShort().toUShort()
+        ByteOrder.LITTLE_ENDIAN -> buffer.readShortLe().toUShort()
+    }
 }
 
 /**
@@ -386,7 +425,10 @@ fun ByteArray.getFloat(
         throw IndexOutOfBoundsException("Cannot return a $format Float from an array of size $size from offset $offset")
     }
     return when (format) {
-        FloatFormat.IEEE_754_SINGLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length).order(order).float
+        FloatFormat.IEEE_754_SINGLE_PRECISION -> {
+            val bits = getInt(offset, IntFormat.INT32, order)
+            Float.fromBits(bits)
+        }
         FloatFormat.IEEE_11073_32_BIT -> {
             val raw = getInt(offset, IntFormat.INT32, order)
             // The following information is defined in https://www.iso.org/standard/84781.html
@@ -433,6 +475,9 @@ fun ByteArray.getDouble(
         throw IndexOutOfBoundsException("Cannot return a Double from an array of size $size from offset $offset")
     }
     return when (format) {
-        DoubleFormat.IEEE_754_DOUBLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length).order(order).double
+        DoubleFormat.IEEE_754_DOUBLE_PRECISION -> {
+            val bits = getLong(offset, order)
+            Double.fromBits(bits)
+        }
     }
 }
