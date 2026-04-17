@@ -30,7 +30,7 @@
  */
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.nordic.kotlin.kmp)
     alias(libs.plugins.nordic.nexus.kmp)
 }
 
@@ -41,10 +41,9 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    macosX64()
     macosArm64()
     sourceSets.commonMain.dependencies {
-        implementation("com.squareup.okio:okio:3.16.2")
+        implementation(libs.okio)
     }
     sourceSets.commonTest.dependencies {
         implementation(kotlin("test"))

@@ -45,7 +45,7 @@ import kotlin.uuid.Uuid
 @OptIn(ExperimentalUuidApi::class)
 fun Uuid.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN): ByteArray {
     val buffer = Buffer()
-    toLongs { mostSignificantBits, leastSignificantBits ->
+    val _ = toLongs { mostSignificantBits, leastSignificantBits ->
         when (order) {
             ByteOrder.BIG_ENDIAN -> {
                 buffer.writeLong(mostSignificantBits)
