@@ -461,7 +461,8 @@ fun ByteArray.getFloat(
 /**
  * Returns a Double value from a byte array with a given offset.
  *
- * @param offset The index to start from.format
+ * @param offset The index to start from.
+ * @param format The format or the Double value to read.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return Double.
  * @throws IndexOutOfBoundsException If the length of the byte array is less than offset + 8.
