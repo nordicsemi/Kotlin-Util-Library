@@ -38,11 +38,11 @@
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
-        <div class="library-version" id="library-version">0.6.0
+        <div class="library-version" id="library-version">1.0.0
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":data/main">jvm</button>
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":data/commonMain">common</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -51,11 +51,11 @@
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
-                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":data/main" data-filter=":data/main">
+                                <input type="checkbox" class="checkbox--input" id=":data/commonMain" data-filter=":data/commonMain">
                                 <span class="checkbox--icon"></span>
-                                jvm
+                                common
                             </label>
                         </li>
                 </ul>
@@ -89,12 +89,12 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="member" id="content" pageids="data::no.nordicsemi.kotlin.data//toUuid/kotlin.ByteArray#java.nio.ByteOrder/PointingToDeclaration//1032805802">
+<div class="main-content" data-page-type="member" id="content" pageids="data::no.nordicsemi.kotlin.data//toUuid/kotlin.ByteArray#no.nordicsemi.kotlin.data.ByteOrder/PointingToDeclaration//527451509">
   <div class="breadcrumbs"><a href="../index.html">data</a><span class="delimiter">/</span><a href="index.html">no.nordicsemi.kotlin.data</a><span class="delimiter">/</span><span class="current">toUuid</span></div>
   <div class="cover ">
     <h1 class="cover"><span>to</span><wbr><span><span>Uuid</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":data/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">.</span><a href="to-uuid.html"><span class="token function">toUuid</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">order<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/nio/ByteOrder.html">ByteOrder</a><span class="token operator"> = </span>ByteOrder.BIG_ENDIAN</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/index.html">Uuid</a></div><p class="paragraph">Converts a byte array to a 128-bit Uuid.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">Uuid</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":data/main" data-filterable-set=":data/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>order</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The byte order, default is <a href="https://developer.android.com/reference/kotlin/java/nio/ByteOrder.html#big_endian">ByteOrder.BIG_ENDIAN</a>.</p></div></div></div></div></div><h4 class="tableheader">Throws</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":data/main" data-filterable-set=":data/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-argument-exception/index.html"><span>Illegal</span><wbr><span>Argument</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">If the byte array is not 16 bytes long.</p></div></div></div></div></div></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":data/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">.</span><a href="to-uuid.html"><span class="token function">toUuid</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">order<span class="token operator">: </span><a href="-byte-order/index.html">ByteOrder</a><span class="token operator"> = </span>ByteOrder.BIG_ENDIAN</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.uuid/-uuid/index.html">Uuid</a></div><p class="paragraph">Converts a byte array to a 128-bit Uuid.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">Uuid</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":data/commonMain" data-filterable-set=":data/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>order</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The byte order, default is <a href="-byte-order/-b-i-g_-e-n-d-i-a-n/index.html">ByteOrder.BIG_ENDIAN</a>.</p></div></div></div></div></div><h4 class="tableheader">Throws</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":data/commonMain" data-filterable-set=":data/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-argument-exception/index.html"><span>Illegal</span><wbr><span>Argument</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">If the byte array is not 16 bytes long.</p></div></div></div></div></div></div></div>
 </div>
     <div class="footer">
         <div class="footer--container">

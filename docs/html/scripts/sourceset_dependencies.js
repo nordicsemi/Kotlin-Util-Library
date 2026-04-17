@@ -1,1 +1,1 @@
-sourceset_dependencies = '{":data/main":[]}'
+sourceset_dependencies = '{":data/appleMain":[":data/nativeMain"],":data/commonMain":[],":data/iosArm64Main":[":data/iosMain"],":data/iosMain":[":data/appleMain"],":data/iosSimulatorArm64Main":[":data/iosMain"],":data/iosX64Main":[":data/iosMain"],":data/jvmMain":[":data/commonMain"],":data/macosArm64Main":[":data/macosMain"],":data/macosMain":[":data/appleMain"],":data/nativeMain":[":data/commonMain"]}'
