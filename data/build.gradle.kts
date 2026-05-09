@@ -48,6 +48,9 @@ kotlin {
     sourceSets.commonTest.dependencies {
         implementation(kotlin("test"))
     }
+    sourceSets.jvmMain.dependencies {
+        implementation(libs.slf4j.simple)
+    }
 }
 
 nordicNexusPublishing {
