@@ -6,6 +6,8 @@ pluginManagement {
         google {
             content {
                 includeGroupAndSubgroups("com.google")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("androidx")
             }
         }
         gradlePluginPortal {
@@ -34,7 +36,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         // Use Nordic Gradle Version Catalog with common external libraries versions.
         create("libs") {
-            from("no.nordicsemi.android.gradle:version-catalog:2.15")
+            from("no.nordicsemi.gradle:version-catalog-min-sdk-21:3.0")
         }
     }
 }
