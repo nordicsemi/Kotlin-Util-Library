@@ -30,8 +30,9 @@
  */
 
 plugins {
-    alias(libs.plugins.nordic.kotlin.kmp)
-    alias(libs.plugins.nordic.nexus.kmp)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.nordic.kotlin)
+    alias(libs.plugins.nordic.publish.kmp)
 }
 
 group = "no.nordicsemi.kotlin"
@@ -50,7 +51,7 @@ kotlin {
     }
 }
 
-nordicNexusPublishing {
+nordicPublishing {
     POM_ARTIFACT_ID = "data"
     POM_NAME = "Kotlin data utilities."
     POM_DESCRIPTION = "Set of extension methods for bit and byte-array operations."
