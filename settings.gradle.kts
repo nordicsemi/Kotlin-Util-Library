@@ -29,6 +29,8 @@ dependencyResolutionManagement {
         google {
             content {
                 includeGroupAndSubgroups("com.google")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("androidx")
             }
         }
         mavenCentral()
@@ -44,4 +46,6 @@ dependencyResolutionManagement {
 rootProject.name = "Kotlin Util Library"
 
 include(":data")
+include(":id")
+include(":log")
  
