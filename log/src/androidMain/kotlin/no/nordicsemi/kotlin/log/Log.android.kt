@@ -55,14 +55,15 @@ private class LogcatSink(
 
         // Build the tag as category name and source.
         val tag = source?.let { "${category.name} | $it" } ?: category.name
+        val safeTag = if (tag.length > 23 && android.os.Build.VERSION.SDK_INT < 26) tag.take(23) else tag
         val text = message()
         when (level) {
-            Log.Level.TRACE -> Logcat.v(tag, text, throwable)
-            Log.Level.DEBUG -> Logcat.d(tag, text, throwable)
-            Log.Level.INFO  -> Logcat.i(tag, text, throwable)
-            Log.Level.WARN  -> Logcat.w(tag, text, throwable)
-            Log.Level.ERROR -> Logcat.e(tag, text, throwable)
-            Log.Level.ASSERT-> Logcat.wtf(tag, text, throwable)
+            Log.Level.TRACE -> Logcat.v(safeTag, text, throwable)
+            Log.Level.DEBUG -> Logcat.d(safeTag, text, throwable)
+            Log.Level.INFO  -> Logcat.i(safeTag, text, throwable)
+            Log.Level.WARN  -> Logcat.w(safeTag, text, throwable)
+            Log.Level.ERROR -> Logcat.e(safeTag, text, throwable)
+            Log.Level.ASSERT -> Logcat.wtf(safeTag, text, throwable)
         }
     }
 
