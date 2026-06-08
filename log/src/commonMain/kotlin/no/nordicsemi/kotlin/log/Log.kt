@@ -77,9 +77,8 @@ internal expect fun defaultSink(
  * Emitters may be [generic][Emitter] and [identifiable][IdentifiableEmitter]. Identifiable
  * emitters return their [identifier][Identifiable.identifier] as the `source` of the log entry.
  *
- * #### Example
  * ```kotlin
- * class SomeObject: LogEmitter {
+ * class SomeObject: Log.Emitter {
  *    var logger: Log.Sink? = null
  *
  *    fun event() {
