@@ -117,9 +117,8 @@ object Log {
      * enum class MyCategory : Log.Category {
      *    SOME_CATEGORY,
      *    ANOTHER_CATEGORY,
-     * }
-     *
-     * class SomeObject: LogEmitter {
+     * ```kotlin
+     * class SomeObject: Log.Emitter {
      *    var logger: Log.Sink? = null
      *
      *    fun event() {
