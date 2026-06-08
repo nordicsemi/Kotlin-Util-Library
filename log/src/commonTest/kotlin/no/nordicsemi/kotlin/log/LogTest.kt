@@ -40,9 +40,9 @@ class LogTest {
     }
 
     private class TestSink(
-        private val filter: (Log.Category, Log.Level) -> Boolean = { _, _ -> true },
-    ) : Log.Sink {
-        var lastCategory: Log.Category? = null
+        private val filter: (TestCategory, Log.Level) -> Boolean = { _, _ -> true },
+    ) : Log.Sink<TestCategory> {
+        var lastCategory: TestCategory? = null
         var lastLevel: Log.Level? = null
         var lastSource: String? = null
         var lastThrowable: Throwable? = null
@@ -50,7 +50,7 @@ class LogTest {
         var logCount = 0
 
         override fun log(
-            category: Log.Category,
+            category: TestCategory,
             level: Log.Level,
             source: String?,
             throwable: Throwable?,
@@ -70,7 +70,7 @@ class LogTest {
     @Test
     fun `test emitter lazy evaluation`() {
         val sink = TestSink { _, level -> level >= Log.Level.INFO }
-        val emitter = object : Log.Emitter {}
+        val emitter = object : Log.Emitter<TestCategory> {}
         var evaluatedCount = 0
 
         with(emitter) {
@@ -98,7 +98,7 @@ class LogTest {
     @Test
     fun `test identifiable emitter source`() {
         val sink = TestSink()
-        val emitter = object : Log.IdentifiableEmitter<String> {
+        val emitter = object : Log.IdentifiableEmitter<String, TestCategory> {
             override val identifier: String = "test-source"
         }
 
@@ -112,7 +112,7 @@ class LogTest {
     @Test
     fun `test default sink filtering`() {
         // Create a default sink that only logs ERROR and above
-        val sink = Log.Sink.Default { _, level -> level >= Log.Level.ERROR }
+        val sink = Log.Sink.Default<TestCategory> { _, level -> level >= Log.Level.ERROR }
 
         var evaluated = false
         // This should not evaluate the lambda
@@ -126,7 +126,7 @@ class LogTest {
     @Test
     fun `test default sink evaluation`() {
         // Create a default sink that only logs INFO and above
-        val sink = Log.Sink.Default { _, level -> level >= Log.Level.INFO }
+        val sink = Log.Sink.Default<TestCategory> { _, level -> level >= Log.Level.INFO }
 
         var evaluated = false
         // This should evaluate the lambda
@@ -140,7 +140,7 @@ class LogTest {
     @Test
     fun `test emitter shorthands`() {
         val sink = TestSink()
-        val emitter = object : Log.Emitter {}
+        val emitter = object : Log.Emitter<TestCategory> {}
 
         with(emitter) {
             sink.trace(TestCategory.TEST) { "trace" }
@@ -163,7 +163,7 @@ class LogTest {
     @Test
     fun `test emitter one letter shorthands`() {
         val sink = TestSink()
-        val emitter = object : Log.Emitter {}
+        val emitter = object : Log.Emitter<TestCategory> {}
 
         with(emitter) {
             sink.t(TestCategory.TEST) { "t" }
@@ -189,7 +189,7 @@ class LogTest {
     @Test
     fun `test throwable only logging`() {
         val sink = TestSink()
-        val emitter = object : Log.Emitter {}
+        val emitter = object : Log.Emitter<TestCategory> {}
         val exception = RuntimeException("test error")
 
         with(emitter) {

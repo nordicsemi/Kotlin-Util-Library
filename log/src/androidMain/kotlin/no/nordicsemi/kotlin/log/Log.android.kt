@@ -35,16 +35,16 @@ package no.nordicsemi.kotlin.log
 
 import android.util.Log as Logcat
 
-internal actual fun defaultSink(
-    filter: (Log.Category, Log.Level) -> Boolean,
-): Log.Sink = LogcatSink(filter)
+internal actual fun <C : Log.Category> defaultSink(
+    filter: (C, Log.Level) -> Boolean,
+): Log.Sink<C> = LogcatSink(filter)
 
-private class LogcatSink(
-    private val filter: (Log.Category, Log.Level) -> Boolean,
-): Log.Sink {
+private class LogcatSink<C : Log.Category>(
+    private val filter: (C, Log.Level) -> Boolean,
+): Log.Sink<C> {
 
     override fun log(
-        category: Log.Category,
+        category: C,
         level: Log.Level,
         source: String?,
         throwable: Throwable?,

@@ -41,65 +41,88 @@ import no.nordicsemi.kotlin.id.Identifiable
  * @param filter A filter that determines which logs should be logged. By default,
  * all log messages from [INFO][Log.Level.INFO] and above are passed through.
  */
-internal expect fun defaultSink(
-    filter: (Log.Category, Log.Level) -> Boolean,
-): Log.Sink
+internal expect fun <C : Log.Category> defaultSink(
+    filter: (C, Log.Level) -> Boolean,
+): Log.Sink<C>
 
 /**
- * Types related to logging.
+ * The `Log` component provides a simple logging API.
  *
- * ## Types
+ * Usually, the log [Emitter] and [Sink] are separate units.
  *
- * The `Log` type groups all log-related types:
+ * ## Library / Log producer
  *
- * ### Level
+ * The library modules produce (emit) logs, that can be consumed by the application and sent to
+ * a console, or to a remote server by the implementation (sink).
  *
- * This is the severity level of a log entry.
+ * The emitter may produce logs from different components - [Category]s - and with different
+ * severity levels - [Level]s.
  *
  * ### Category
  *
- * Library-dependent labels identifying the layer or component that produced a log entry.
+ * Library modules define *Categories* - the types of logs they emit. Those can be layers,
+ * components, or anything else. Implementation may later filter logs by category.
  *
  * #### Example
  * ```kotlin
- * enum class MyCategory : Log.Category {
- *    SOME_CATEGORY,
- *    ANOTHER_CATEGORY,
+ * enum class LibraryComponent : Log.Category {
+ *    COMPONENT_A,
+ *    COMPONENT_B,
  * }
  * ```
  *
  * ### Emitter
  *
- * The [Emitter] interface adds useful shorthand methods for logging.
- *
- * Emitters are usually components in libraries that produce log events.
+ * The [Emitter] interface define an object that produces (emits) logs. The type adds useful
+ * shorthand methods for logging.
  *
  * Emitters may be [generic][Emitter] and [identifiable][IdentifiableEmitter]. Identifiable
  * emitters return their [identifier][Identifiable.identifier] as the `source` of the log entry.
  *
+ * #### Example
  * ```kotlin
- * class SomeObject: Log.Emitter {
- *    var logger: Log.Sink? = null
+ * class LibraryManager: Log.Emitter<LibraryComponent> {
+ *    var logger: Log.Sink<LibraryComponent>? = null
  *
  *    fun event() {
- *       logger?.i(MyCategory.SOME_CATEGORY) { "Some event" }
+ *       // ...
+ *       logger?.i(LibraryComponent.COMPONENT_A) { "Some event" }
  *    }
  * }
  * ```
  *
+ * ## Application / Log consumer
+ *
+ * The application consumes logs by implementing the [Sink] interface.
+ *
  * ### Sink
  *
- * A sink is an object that can receive log entries.
- *
- * An app should provide the log sink to receive log messages from [Emitter].
+ * A sink is an object that can receive log events.
  *
  * #### Example
  *
  * ```kotlin
- * val logger = Log.Sink { category, level, source, throwable, message ->
+ * val m = LibraryManager()
+ * m.logger = Log.Sink { category, level, source, throwable, message ->
  *    if (level >= Log.Level.DEBUG) {
- *        println("Event (cat: $category): ${message()}")
+ *        // Evaluate lazy message:
+ *        val text = message()
+ *        println("Event (cat: $category.name): $text")
  *    }
+ * }
+ * m.event()
+ * ```
+ *
+ * ### Standard sink
+ *
+ * To log on the standard platform console (or Logcat on Android) use:
+ * ```kotlin
+ * m.logger = Log.Sink.Default()
+ * ```
+ * or customize the filter with:
+ * ```kotlin
+ * m.logger = Log.Sink.Default { category, level ->
+ *    return level >= Log.Level.TRACE
  * }
  * ```
  */
@@ -111,24 +134,9 @@ object Log {
      * Apps should implement this interface to receive log entries from [Emitter]s.
      *
      * ## Example
-     *
-     * Having a component that can log:
      * ```kotlin
-     * enum class MyCategory : Log.Category {
-     *    SOME_CATEGORY,
-     *    ANOTHER_CATEGORY,
-     * ```kotlin
-     * class SomeObject: Log.Emitter {
-     *    var logger: Log.Sink? = null
-     *
-     *    fun event() {
-     *       logger?.i(MyCategory.SOME_CATEGORY) { "Some event" }
-     *    }
-     * }
-     * ```
-     * use a log sink:
-     * ```kotlin
-     * logger = Log.Sink { category, level, source, throwable, message ->
+     * val m = LibraryManager()
+     * m.logger = Log.Sink { category, level, source, throwable, message ->
      *    if (level >= Log.Level.DEBUG) {
      *        println("Event (cat: $category): ${message()}")
      *    }
@@ -139,18 +147,18 @@ object Log {
      *
      * To log on the standard platform console (or Logcat on Android) use:
      * ```kotlin
-     * logger = Log.Sink.Default()
+     * m.logger = Log.Sink.Default()
      * ```
      * or customize the filter with:
      * ```kotlin
-     * logger = Log.Sink.Default { category, level ->
+     * m.logger = Log.Sink.Default { category, level ->
      *    return level >= Log.Level.TRACE
      * }
      * ```
      *
      * @see Implementation.Default
      */
-    fun interface Sink {
+    fun interface Sink<in C : Category> {
 
         /**
          * Implementation of a log sink.
@@ -169,9 +177,9 @@ object Log {
              * @see Category
              */
             @Suppress("FunctionName")
-            fun Default(
-                filter: (Category, Level) -> Boolean = { _, level -> level >= Level.INFO }
-            ): Sink = defaultSink(filter)
+            fun <C : Category> Default(
+                filter: (C, Level) -> Boolean = { _, level -> level >= Level.INFO }
+            ): Sink<C> = defaultSink(filter)
         }
 
         /**
@@ -188,7 +196,7 @@ object Log {
          * @param message A lambda that produces the log message.
          */
         fun log(
-            category: Category,
+            category: C,
             level: Level,
             source: String?,
             throwable: Throwable?,
@@ -260,8 +268,10 @@ object Log {
 
     /**
      * An instance of this interface can produce logs.
+     *
+     * @param C The type of the category, this can be an `enum class` or a base type.
      */
-    interface Emitter {
+    interface Emitter<C : Category> {
 
         /**
          * Log a message with the given [category] and [level].
@@ -275,8 +285,8 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.log(
-            category: Category,
+        fun Sink<C>.log(
+            category: C,
             level: Level,
             throwable: Throwable?,
             message: () -> String,
@@ -289,8 +299,8 @@ object Log {
          * @param level The severity level of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.log(
-            category: Category,
+        fun Sink<C>.log(
+            category: C,
             level: Level,
             throwable: Throwable,
         ) = log(category, level, null, throwable) { throwable.message ?: throwable.toString() }
@@ -303,7 +313,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.trace(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.trace(category: C, throwable: Throwable? = null, message: () -> String) =
             log(category, Level.TRACE, throwable, message)
 
         /**
@@ -312,7 +322,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.trace(category: Category, throwable: Throwable) =
+        fun Sink<C>.trace(category: C, throwable: Throwable) =
             log(category, Level.TRACE, throwable)
 
         /**
@@ -325,7 +335,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.verbose(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.verbose(category: C, throwable: Throwable? = null, message: () -> String) =
             trace(category, throwable, message)
 
         /**
@@ -336,7 +346,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.verbose(category: Category, throwable: Throwable) =
+        fun Sink<C>.verbose(category: C, throwable: Throwable) =
             trace(category, throwable)
 
         /**
@@ -347,7 +357,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.debug(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.debug(category: C, throwable: Throwable? = null, message: () -> String) =
             log(category, Level.DEBUG, throwable, message)
 
         /**
@@ -356,7 +366,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.debug(category: Category, throwable: Throwable) =
+        fun Sink<C>.debug(category: C, throwable: Throwable) =
             log(category, Level.DEBUG, throwable)
 
         /**
@@ -367,7 +377,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.info(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.info(category: C, throwable: Throwable? = null, message: () -> String) =
             log(category, Level.INFO, throwable, message)
 
         /**
@@ -376,7 +386,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.info(category: Category, throwable: Throwable) =
+        fun Sink<C>.info(category: C, throwable: Throwable) =
             log(category, Level.INFO, throwable)
 
         /**
@@ -387,7 +397,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.warn(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.warn(category: C, throwable: Throwable? = null, message: () -> String) =
             log(category, Level.WARN, throwable, message)
 
         /**
@@ -396,7 +406,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.warn(category: Category, throwable: Throwable) =
+        fun Sink<C>.warn(category: C, throwable: Throwable) =
             log(category, Level.WARN, throwable)
 
         /**
@@ -407,7 +417,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.error(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.error(category: C, throwable: Throwable? = null, message: () -> String) =
             log(category, Level.ERROR, throwable, message)
 
         /**
@@ -416,7 +426,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.error(category: Category, throwable: Throwable) =
+        fun Sink<C>.error(category: C, throwable: Throwable) =
             log(category, Level.ERROR, throwable)
 
         // Handy 1-letter overloads for the above methods:
@@ -429,7 +439,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.t(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.t(category: C, throwable: Throwable? = null, message: () -> String) =
             trace(category, throwable, message)
 
         /**
@@ -438,7 +448,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.t(category: Category, throwable: Throwable) =
+        fun Sink<C>.t(category: C, throwable: Throwable) =
             trace(category, throwable)
 
         /**
@@ -449,7 +459,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.v(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.v(category: C, throwable: Throwable? = null, message: () -> String) =
             trace(category, throwable, message)
 
         /**
@@ -458,7 +468,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.v(category: Category, throwable: Throwable) =
+        fun Sink<C>.v(category: C, throwable: Throwable) =
             trace(category, throwable)
 
         /**
@@ -469,7 +479,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.d(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.d(category: C, throwable: Throwable? = null, message: () -> String) =
             debug(category, throwable, message)
 
         /**
@@ -478,7 +488,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.d(category: Category, throwable: Throwable) =
+        fun Sink<C>.d(category: C, throwable: Throwable) =
             debug(category, throwable)
 
         /**
@@ -489,7 +499,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.i(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.i(category: C, throwable: Throwable? = null, message: () -> String) =
             info(category, throwable, message)
 
         /**
@@ -498,7 +508,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.i(category: Category, throwable: Throwable) =
+        fun Sink<C>.i(category: C, throwable: Throwable) =
             info(category, throwable)
 
         /**
@@ -509,7 +519,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.w(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.w(category: C, throwable: Throwable? = null, message: () -> String) =
             warn(category, throwable, message)
 
         /**
@@ -518,7 +528,7 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.w(category: Category, throwable: Throwable) =
+        fun Sink<C>.w(category: C, throwable: Throwable) =
             warn(category, throwable)
 
         /**
@@ -529,7 +539,7 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        fun Sink.e(category: Category, throwable: Throwable? = null, message: () -> String) =
+        fun Sink<C>.e(category: C, throwable: Throwable? = null, message: () -> String) =
             error(category, throwable, message)
 
         /**
@@ -538,14 +548,14 @@ object Log {
          * @param category The category of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        fun Sink.e(category: Category, throwable: Throwable) =
+        fun Sink<C>.e(category: C, throwable: Throwable) =
             error(category, throwable)
     }
 
     /**
      * This interface should be implemented by an identifiable object that can produce logs.
      */
-    interface IdentifiableEmitter<ID: Any>: Identifiable<ID>, Emitter {
+    interface IdentifiableEmitter<ID : Any, C : Category>: Identifiable<ID>, Emitter<C> {
 
         /**
          * Log a message with the given [category] and [level].
@@ -559,8 +569,8 @@ object Log {
          * such as an exception being logged.
          * @param message A lambda that produces the log message.
          */
-        override fun Sink.log(
-            category: Category,
+        override fun Sink<C>.log(
+            category: C,
             level: Level,
             throwable: Throwable?,
             message: () -> String,
@@ -573,8 +583,8 @@ object Log {
          * @param level The severity level of the log entry.
          * @param throwable A [Throwable] to be logged.
          */
-        override fun Sink.log(
-            category: Category,
+        override fun Sink<C>.log(
+            category: C,
             level: Level,
             throwable: Throwable,
         ) = log(category, level, identifier.toString(), throwable) { throwable.message ?: throwable.toString() }

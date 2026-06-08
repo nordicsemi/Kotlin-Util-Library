@@ -33,16 +33,16 @@
 
 package no.nordicsemi.kotlin.log
 
-internal actual fun defaultSink(
-    filter: (Log.Category, Log.Level) -> Boolean,
-): Log.Sink = PrintSink(filter)
+internal actual fun <C : Log.Category> defaultSink(
+    filter: (C, Log.Level) -> Boolean,
+): Log.Sink<C> = PrintSink(filter)
 
-private class PrintSink(
-    private val filter: (Log.Category, Log.Level) -> Boolean,
-): Log.Sink {
+private class PrintSink<C : Log.Category>(
+    private val filter: (C, Log.Level) -> Boolean,
+): Log.Sink<C> {
 
     override fun log(
-        category: Log.Category,
+        category: C,
         level: Log.Level,
         source: String?,
         throwable: Throwable?,
