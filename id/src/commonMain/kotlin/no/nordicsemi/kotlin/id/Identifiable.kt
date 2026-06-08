@@ -32,7 +32,7 @@
 package no.nordicsemi.kotlin.id
 
 /**
- * An interface for objects that has a unique identifier.
+ * An interface for objects that have a unique identifier.
  */
 interface Identifiable<ID: Any> {
     /**
