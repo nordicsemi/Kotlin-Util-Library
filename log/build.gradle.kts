@@ -51,6 +51,9 @@ kotlin {
         commonMain.dependencies {
             api(project(":id"))
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
     }
 }
 
