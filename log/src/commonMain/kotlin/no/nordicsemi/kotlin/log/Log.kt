@@ -72,7 +72,7 @@ internal expect fun defaultSink(
  *
  * The [Emitter] interface adds useful shorthand methods for logging.
  *
- * Emitters are usually a components in libraries that produce log events.
+ * Emitters are usually components in libraries that produce log events.
  *
  * Emitters may be [generic][Emitter] and [identifiable][IdentifiableEmitter]. Identifiable
  * emitters return their [identifier][Identifiable.identifier] as the `source` of the log entry.
