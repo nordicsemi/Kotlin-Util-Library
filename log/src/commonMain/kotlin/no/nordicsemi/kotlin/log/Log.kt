@@ -75,12 +75,12 @@ internal expect fun defaultSink(
  * Emitters are usually a components in libraries that produce log events.
  *
  * Emitters may be [generic][Emitter] and [identifiable][IdentifiableEmitter]. Identifiable
- * emitters return their [identifier][IdentifiableEmitter.identifier] as the `source` of the log entry.
+ * emitters return their [identifier][Identifiable.identifier] as the `source` of the log entry.
  *
  * #### Example
  * ```kotlin
  * class SomeObject: LogEmitter {
- *    logger: Log.Sink? = null
+ *    var logger: Log.Sink? = null
  *
  *    fun event() {
  *       logger?.i(MyCategory.SOME_CATEGORY) { "Some event" }
@@ -121,7 +121,7 @@ object Log {
      * }
      *
      * class SomeObject: LogEmitter {
-     *    logger: Log.Sink? = null
+     *    var logger: Log.Sink? = null
      *
      *    fun event() {
      *       logger?.i(MyCategory.SOME_CATEGORY) { "Some event" }
