@@ -41,6 +41,7 @@ group = "no.nordicsemi.kotlin"
 kotlin {
     android {
         namespace = "no.nordicsemi.kotlin.log"
+        withHostTest {}
     }
     jvm()
     iosX64()
@@ -50,6 +51,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":id"))
+            api(libs.kotlinx.coroutines.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

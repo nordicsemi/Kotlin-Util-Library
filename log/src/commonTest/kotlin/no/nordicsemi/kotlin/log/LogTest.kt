@@ -70,7 +70,7 @@ class LogTest {
     @Test
     fun `test emitter lazy evaluation`() {
         val sink = TestSink { _, level -> level >= Log.Level.INFO }
-        val emitter = object : Log.Emitter<TestCategory> {}
+        val emitter = object : Log.Emitter {}
         var evaluatedCount = 0
 
         with(emitter) {
@@ -98,7 +98,7 @@ class LogTest {
     @Test
     fun `test identifiable emitter source`() {
         val sink = TestSink()
-        val emitter = object : Log.IdentifiableEmitter<String, TestCategory> {
+        val emitter = object : Log.IdentifiableEmitter<String> {
             override val identifier: String = "test-source"
         }
 
@@ -140,7 +140,7 @@ class LogTest {
     @Test
     fun `test emitter shorthands`() {
         val sink = TestSink()
-        val emitter = object : Log.Emitter<TestCategory> {}
+        val emitter = object : Log.Emitter {}
 
         with(emitter) {
             sink.trace(TestCategory.TEST) { "trace" }
@@ -163,7 +163,7 @@ class LogTest {
     @Test
     fun `test emitter one letter shorthands`() {
         val sink = TestSink()
-        val emitter = object : Log.Emitter<TestCategory> {}
+        val emitter = object : Log.Emitter {}
 
         with(emitter) {
             sink.t(TestCategory.TEST) { "t" }
@@ -189,7 +189,7 @@ class LogTest {
     @Test
     fun `test throwable only logging`() {
         val sink = TestSink()
-        val emitter = object : Log.Emitter<TestCategory> {}
+        val emitter = object : Log.Emitter {}
         val exception = RuntimeException("test error")
 
         with(emitter) {

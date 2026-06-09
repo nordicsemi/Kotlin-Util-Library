@@ -50,15 +50,15 @@ private class PrintSink<C : Log.Category>(
     ) {
         if (!filter(category, level)) return
         val text = buildString {
-            append("(")
             append(level.n)
-            append(") ")
+            append(" [")
             append(category.name)
+            append("] ")
             source?.let { source ->
-                append(" | ")
+                append("(")
                 append(source)
+                append(") ")
             }
-            append(": ")
             append(message())
         }
         println(text)

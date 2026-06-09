@@ -54,7 +54,7 @@ private class LogcatSink<C : Log.Category>(
         if (!filter(category, level)) return
 
         // Build the tag as category name and source.
-        val tag = source?.let { "${category.name} | $it" } ?: category.name
+        val tag = source?.let { "${category.name} ($it)" } ?: category.name
         val safeTag = if (tag.length > 23 && android.os.Build.VERSION.SDK_INT < 26) tag.take(23) else tag
         val text = message()
         when (level) {
