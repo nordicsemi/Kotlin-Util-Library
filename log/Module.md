@@ -18,8 +18,6 @@ Contains the core logging API, including the `Log` facade, `Sink`, and `Emitter`
 - **Identifiable Emitters**: Automatically includes source identifiers for multi-instance components.
 - **Coroutines Integration**: Built-in support for directing logs to a `SharedFlow`.
 
----
-
 ## Architecture Overview
 
 The subsystem consists of three main components:
@@ -31,8 +29,6 @@ The subsystem consists of three main components:
 ```text
 [Log.Emitter] --(Log.Event)--> [Log.Sink]
 ```
-
----
 
 ## Library Guide (Log Producers)
 
@@ -83,8 +79,6 @@ class DeviceManager(
     }
 }
 ```
-
----
 
 ## Application Guide (Log Consumers)
 
@@ -138,8 +132,6 @@ manager.logger = Log.Sink { category, level, source, throwable, messageBuilder -
 }
 ```
 
----
-
 ## Utilities
 
 ### Relay
@@ -160,4 +152,84 @@ This is highly efficient as it prevents any message lambda creation or evaluatio
 
 ```kotlin
 manager.logger = Log.Sink.Null // Same as manager.logger = null
+```
+
+## Multiple Emitters
+
+In some cases an app uses multiple libraries, each emitting logs with their own categories.
+
+Consider this example:
+
+#### Library / Module A
+
+```kotlin
+enum class Layer: Log.Category {
+    TRANSPORT, GATT
+}
+
+class Manager: Log.Emitter {
+    var logger: Log.Sink<Module>? = Log.Sink.Null
+
+    fun event() {
+        logger?.t(Module.TRANSPORT) { "event started" }
+        try {
+           // [...]
+        } catch (e: Exception) {
+            logger?.i(Module.TRANSPORT, e) { "event failed" }
+        }
+    }
+}
+```
+
+#### Library / Module B
+
+```kotlin
+enum class Module: Log.Category {
+    HEART_RATE, BATTERY,  
+}
+
+// Some inner implementation
+internal class BatteryManager(val logger: Log.Sink<YourCat>): Log.Emitter {
+    // [...]
+    
+    fun checkLevel() {
+        if (isLowLevel()) {
+            logger.w(Module.BATTERY) { "Battery level is low!" }
+        }
+    }
+}
+
+class DeviceService(
+    override val identifier: Int
+): Log.IdentifiableEmitter<Int> {
+    var logger: Log.Sink<YourCat>? = Log.Sink.Null
+    
+    val bm = BatteryManager(
+        logger = Relay { logger }
+    )
+    
+    fun connect() {
+        logger?.i(Module.HEART_RATE) { "Connecting" }
+        // [...]
+        bm.checkLevel()
+    }
+}
+```
+
+#### Application
+
+An app, that depends on both libraries, can define a common `Sink`:
+
+```kotlin
+val manager = Manager()                                // emits categories from `Layer`
+val deviceService = DeviceService("AA:BB:CC:DD:EE:FF") // emits categories from `Module`
+
+// Sink for logs with any category:
+val sink = Log.Sink.Default<Log.Category> { category, level ->
+    // `category` is a Log.Category
+    // Get name using `category.name`
+    level >= Log.Level.WARN // Log only WARN and above
+}
+manager.logger = sink
+deviceService.logger = sink
 ```
