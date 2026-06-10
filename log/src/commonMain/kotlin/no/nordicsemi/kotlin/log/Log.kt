@@ -209,8 +209,8 @@ object Log {
              * property is more efficient than filtering out all logs. In this case not even the
              * message producing lambdas are created.
              */
-            @Suppress("FunctionName")
-            fun <C : Category> Disabled(): Sink<C>? = null
+            val Null: Nothing?
+                get() = null
 
             /**
              * A sink that emits log [Event]s.

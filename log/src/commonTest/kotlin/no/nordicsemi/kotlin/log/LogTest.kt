@@ -195,7 +195,7 @@ class LogTest {
 
     @Test
     fun `test disabled sink`() {
-        val sink = Log.Sink.Disabled<TestCategory>()
+        val sink: Log.Sink<TestCategory>? = Log.Sink.Null
         assertNull(sink, "Disabled sink should be null")
     }
 
