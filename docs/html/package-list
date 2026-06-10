@@ -3,3 +3,7 @@ $dokka.linkExtension:html
 
 module:data
 no.nordicsemi.kotlin.data
+module:id
+no.nordicsemi.kotlin.id
+module:log
+no.nordicsemi.kotlin.log
