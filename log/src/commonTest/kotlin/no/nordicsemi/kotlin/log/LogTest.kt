@@ -32,6 +32,8 @@
 package no.nordicsemi.kotlin.log
 
 import kotlin.test.*
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.flow.*
 
 class LogTest {
 
@@ -40,9 +42,9 @@ class LogTest {
     }
 
     private class TestSink(
-        private val filter: (TestCategory, Log.Level) -> Boolean = { _, _ -> true },
-    ) : Log.Sink<TestCategory> {
-        var lastCategory: TestCategory? = null
+        private val filter: (Log.Category, Log.Level) -> Boolean = { _, _ -> true },
+    ) : Log.Sink<Log.Category> {
+        var lastCategory: Log.Category? = null
         var lastLevel: Log.Level? = null
         var lastSource: String? = null
         var lastThrowable: Throwable? = null
@@ -50,7 +52,7 @@ class LogTest {
         var logCount = 0
 
         override fun log(
-            category: TestCategory,
+            category: Log.Category,
             level: Log.Level,
             source: String?,
             throwable: Throwable?,
@@ -107,34 +109,6 @@ class LogTest {
         }
 
         assertEquals("test-source", sink.lastSource, "IdentifiableEmitter should forward identifier as source")
-    }
-
-    @Test
-    fun `test default sink filtering`() {
-        // Create a default sink that only logs ERROR and above
-        val sink = Log.Sink.Default<TestCategory> { _, level -> level >= Log.Level.ERROR }
-
-        var evaluated = false
-        // This should not evaluate the lambda
-        sink.log(TestCategory.TEST, Log.Level.INFO, null, null) {
-            evaluated = true
-            "Message lambda should not be evaluated for INFO level"
-        }
-        assertFalse(evaluated, "Message lambda should not be evaluated when filtered out by Default sink")
-    }
-
-    @Test
-    fun `test default sink evaluation`() {
-        // Create a default sink that only logs INFO and above
-        val sink = Log.Sink.Default<TestCategory> { _, level -> level >= Log.Level.INFO }
-
-        var evaluated = false
-        // This should evaluate the lambda
-        sink.log(TestCategory.TEST, Log.Level.INFO, null, null) {
-            evaluated = true
-            "Message"
-        }
-        assertTrue(evaluated, "Message lambda should be evaluated when not filtered out by Default sink")
     }
 
     @Test
@@ -217,5 +191,67 @@ class LogTest {
         assertEquals("W", Log.Level.WARN.n)
         assertEquals("E", Log.Level.ERROR.n)
         assertEquals("A", Log.Level.ASSERT.n)
+    }
+
+    @Test
+    fun `test disabled sink`() {
+        val sink = Log.Sink.Disabled<TestCategory>()
+        assertNull(sink, "Disabled sink should be null")
+    }
+
+    @Test
+    fun `test pipe`() {
+        var activeSink: TestSink? = null
+        val pipe = Log.Pipe { activeSink }
+        val emitter = object : Log.Emitter {}
+
+        // Log when pipe destination is null
+        with(emitter) {
+            pipe.info(TestCategory.TEST) { "Message 1" }
+        }
+
+        // Log when pipe destination is set
+        val testSink = TestSink()
+        activeSink = testSink
+        with(emitter) {
+            pipe.info(TestCategory.TEST) { "Message 2" }
+        }
+
+        assertEquals(1, testSink.logCount)
+        assertEquals("Message 2", testSink.lastMessage)
+    }
+
+    @Test
+    fun `test flow sink`() = runTest {
+        val sink = Log.Sink.Flow<TestCategory>(MutableSharedFlow(replay = 1))
+        val emitter = object : Log.Emitter {}
+
+        with(emitter) {
+            sink.info(TestCategory.TEST) { "Flow message" }
+        }
+
+        val event = sink.first()
+        assertEquals(TestCategory.TEST, event.category)
+        assertEquals(Log.Level.INFO, event.level)
+        assertEquals("Flow message", event.message)
+    }
+
+    @Test
+    fun `test flow event lazy evaluation`() = runTest {
+        val sink = Log.Sink.Flow<TestCategory>(MutableSharedFlow(replay = 1))
+        val emitter = object : Log.Emitter {}
+        var evaluated = false
+
+        with(emitter) {
+            sink.info(TestCategory.TEST) {
+                evaluated = true
+                "Lazy message"
+            }
+        }
+
+        assertFalse(evaluated, "Message should not be evaluated until accessed")
+        val event = sink.first()
+        assertEquals("Lazy message", event.message)
+        assertTrue(evaluated, "Message should be evaluated after access")
     }
 }
