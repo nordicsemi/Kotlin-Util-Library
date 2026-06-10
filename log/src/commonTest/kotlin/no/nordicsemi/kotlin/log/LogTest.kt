@@ -200,21 +200,21 @@ class LogTest {
     }
 
     @Test
-    fun `test pipe`() {
+    fun `test relay`() {
         var activeSink: TestSink? = null
-        val pipe = Log.Pipe { activeSink }
         val emitter = object : Log.Emitter {}
+        val relay = emitter.Relay { activeSink }
 
-        // Log when pipe destination is null
+        // Log when relay destination is null
         with(emitter) {
-            pipe.info(TestCategory.TEST) { "Message 1" }
+            relay.info(TestCategory.TEST) { "Message 1" }
         }
 
-        // Log when pipe destination is set
+        // Log when relay destination is set
         val testSink = TestSink()
         activeSink = testSink
         with(emitter) {
-            pipe.info(TestCategory.TEST) { "Message 2" }
+            relay.info(TestCategory.TEST) { "Message 2" }
         }
 
         assertEquals(1, testSink.logCount)

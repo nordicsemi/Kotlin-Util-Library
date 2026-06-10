@@ -201,33 +201,6 @@ object Log {
     }
 
     /**
-     * A [Sink] that forwards logs to another [Sink].
-     *
-     * This can be used for internal implementations in [Emitter]s to forward logs to the main
-     * sink assigned by the application.
-     *
-     * #### Example
-     * ```kotlin
-     * class Manager {
-     *    var logger: Log.Sink<MyCategory>? = Log.Sink.Null
-     *    private val internalComponent = Component(
-     *       // Forward logs to the dynamic logger property above
-     *       logger = Log.Pipe { logger }
-     *    )
-     * }
-     * ```
-     *
-     * @param sink A lambda that returns the sink to forward logs to.
-     * @return A [Sink] that forwards logs to the given [sink].
-     */
-    @Suppress("FunctionName")
-    fun <C: Category> Pipe(
-        sink: () -> Sink<C>?
-    ): Sink<C> = Sink { c, l, s, t, m ->
-        sink()?.log(c, l, s, t, m)
-    }
-
-    /**
      * Severity of a log entry.
      *
      * The levels are ordered in order of severity.
@@ -647,6 +620,34 @@ object Log {
          */
         fun <C : Category> Sink<C>.e(category: C, throwable: Throwable) =
             error(category, throwable)
+
+        /**
+         * Relay is a [Sink] that forwards logs to another `Sink`.
+         *
+         * This can be used for internal implementations in [Emitter]s to forward logs to the main
+         * `Sink` assigned by the application.
+         *
+         * #### Example
+         * ```kotlin
+         * class Manager: Log.Emitter {
+         *    var logger: Log.Sink<MyCategory>? = Log.Sink.Null
+         *    
+         *    private val internalComponent = Component(
+         *       // Forward logs to the dynamic logger property above
+         *       logger = Relay { logger }
+         *    )
+         * }
+         * ```
+         *
+         * @param sink A lambda that returns the sink to forward logs to.
+         * @return A [Sink] that forwards logs to the given [sink].
+         */
+        @Suppress("FunctionName")
+        fun <C: Category> Relay(
+            sink: () -> Sink<C>?
+        ): Sink<C> = Sink { c, l, s, t, m ->
+            sink()?.log(c, l, s, t, m)
+        }
     }
 
     /**
@@ -685,5 +686,34 @@ object Log {
             level: Level,
             throwable: Throwable,
         ) = log(category, level, identifier.toString(), throwable) { throwable.message ?: throwable.toString() }
+
+        /**
+         * Relay is a [Sink] that forwards logs to another `Sink`.
+         *
+         * This can be used for internal implementations in [Emitter]s to forward logs to the main
+         * sink assigned by the application.
+         *
+         * #### Example
+         * ```kotlin
+         * class DeviceManager(
+         *    val identifier: String,
+         * ): Log.IdentifiableEmitter<String> {
+         *    var logger: Log.Sink<MyCategory>? = Log.Sink.Null
+         *
+         *    private val internalComponent = Component(
+         *       // Forward logs to the dynamic logger property above
+         *       logger = Relay { logger }
+         *    )
+         * }
+         * ```
+         *
+         * @param sink A lambda that returns the sink to forward logs to.
+         * @return A [Sink] that forwards logs to the given [sink].
+         */
+        override fun <C: Category> Relay(
+            sink: () -> Sink<C>?
+        ): Sink<C> = Sink { c, l, s, t, m ->
+            sink()?.log(c, l, identifier.toString(), t, m)
+        }
     }
 }

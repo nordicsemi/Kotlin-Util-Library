@@ -142,14 +142,14 @@ manager.logger = Log.Sink { category, level, source, throwable, messageBuilder -
 
 ## Utilities
 
-### Log.Pipe
+### Relay
 
-Use `Log.Pipe` to forward logs from an internal component to a sink that might be updated later.
+Use `Emitter.Relay` to forward logs from an internal component to a sink that might be updated later.
 
 ```kotlin
-class Parent {
+class Parent: Log.Emitter {
     var logger: Log.Sink<MyCategory>? = Log.Sink.Null
-    private val child = Child(logger = Log.Pipe { logger })
+    private val child = Child(logger = Relay { logger })
 }
 ```
 
