@@ -135,9 +135,32 @@ object Log {
             /**
              * A sink that does nothing.
              *
-             * Note: This method returns `null`. Setting a `null` value as a nullable sink
-             * property is more efficient than filtering out all logs. In this case not even the
-             * message producing lambdas are created.
+             * This property is equal to `null`.
+             *
+             * ### Null vs No Op Sink
+             *
+             * Setting `null` (or `Log.Sink.Null`) as a value of a nullable sink property is
+             * more efficient than having a custom [Sink] that filters out all logs.
+             * In this case not even the message producing lambdas are created.
+             *
+             * #### Recommended
+             *
+             * In this example, the `v` method is not executed and the lambda is not created:
+             * ```kotlin
+             * var logger: Log.Sink<MyCategory>? = Log.Sink.Null
+             *
+             * logger?.v(MyCategory.A) { "Hello!" }
+             * ```
+             *
+             * #### Discouraged
+             *
+             * In this example, the `v` method is executed and the lambda is created, but the
+             * result is later ignored:
+             * ```kotlin
+             * val noOpLogger: Log.Sink<MyCategory>? = Log.Sink.Default { _, _ -> false }
+             *
+             * noOpLogger?.v(MyCategory.A) { "Hello Again!" }
+             * ```
              */
             val Null: Nothing?
                 get() = null
