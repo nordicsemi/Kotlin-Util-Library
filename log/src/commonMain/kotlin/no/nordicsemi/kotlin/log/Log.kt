@@ -300,9 +300,9 @@ object Log {
 
         override fun toString(): String {
             if (source == null) {
-                return "${level.n} [$category] $message)"
+                return "${level.n} [$category] $message"
             }
-            return "${level.n} [$category] ($source) $message)"
+            return "${level.n} [$category] ($source) $message"
         }
     }
 
