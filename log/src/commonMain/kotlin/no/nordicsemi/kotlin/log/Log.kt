@@ -54,135 +54,65 @@ internal expect fun <C : Log.Category> defaultSink(
  *
  * Usually, the log [Emitter] and [Sink] are separate units.
  *
- * ## Library / Log producer
+ * ## Library Guide (Log Producers)
  *
- * The library modules produce (emit) logs, that can be consumed by the application and sent to
- * a console, or to a remote server by the implementation (sink).
- *
- * The emitter may produce logs from different components - [Category]s - and with different
- * severity levels - [Level]s.
- *
- * ### Category
- *
- * Library modules define *Categories* - the types of logs they emit. Those can be layers,
- * components, or anything else. Implementation may later filter logs by category.
+ * Library modules define [Category]s to distinguish the types of logs they emit, and produce
+ * logs using the [Emitter] or [IdentifiableEmitter] interfaces.
  *
  * #### Example
  * ```kotlin
  * enum class LibraryComponent : Log.Category {
- *    COMPONENT_A,
- *    COMPONENT_B,
+ *    A, B
  * }
- * ```
  *
- * ### Emitter
- *
- * The [Emitter] interface define an object that produces (emits) logs. The type adds useful
- * shorthand methods for logging.
- *
- * Emitters may be [generic][Emitter] and [identifiable][IdentifiableEmitter]. Identifiable
- * emitters return their [identifier][Identifiable.identifier] as the `source` of the log entry.
- *
- * #### Example
- * ```kotlin
- * class LibraryManager: Log.Emitter {
- *    var logger: Log.Sink<LibraryComponent>? = null
+ * class Manager: Log.Emitter {
+ *    var logger: Log.Sink<LibraryComponent>? = Log.Sink.Null
  *
  *    fun event() {
- *       // ...
- *       logger?.i(LibraryComponent.COMPONENT_A) { "Some event" }
+ *       logger?.i(LibraryComponent.A) { "Some event" }
  *    }
  * }
  * ```
  *
- * ## Application / Log consumer
+ * ## Application Guide (Log Consumers)
  *
- * The application consumes logs by implementing the [Sink] interface.
- *
- * ### Sink
- *
- * A sink is an object that can receive log events.
+ * Applications consume logs by implementing or using one of the [Sink] implementations.
  *
  * #### Example
- *
  * ```kotlin
- * val m = LibraryManager()
- * m.logger = Log.Sink { category, level, source, throwable, message ->
- *    if (level >= Log.Level.DEBUG) {
- *        // Evaluate lazy message:
- *        val text = message()
- *        println("Event (cat: $category.name): $text")
- *    }
- * }
- * m.event()
- * ```
- *
- * ### Standard sink
- *
- * To log on the standard platform console (or Logcat on Android) use:
- * ```kotlin
- * m.logger = Log.Sink.Default()
- * ```
- * or customize the filter with:
- * ```kotlin
+ * val m = Manager()
  * m.logger = Log.Sink.Default { category, level ->
- *    return level >= Log.Level.TRACE
+ *    level >= Log.Level.DEBUG
  * }
  * ```
  *
- * ### Flow as Sink
- *
- * It is possible to direct logs into a [SharedFlow] of [Event]s using [Sink.Flow].
- * ```kotlin
- * val flowSink = Log.Sink.Flow<LibraryComponent>().also { flow ->
- *     flow
- *        .filter { it.category == LibraryComponent.COMPONENT_A }
- *        .onEach {
- *           // Note: Event.message is evaluated at-most once. The message builder is
- *           //       called under-the-hood when message is first accessed.
- *           println("Message: ${it.message}")
- *        }
- *        .launchIn(scope)
- * }
- * m.logger = flowSink
- * ```
+ * @see Emitter
+ * @see Sink
  */
 object Log {
 
     /**
      * Sink for log entries.
      *
-     * Apps should implement the [log] method from interface to receives from [Emitter]s.
+     * Apps should implement the [log] method to receive logs from [Emitter]s.
      *
-     * ## Example
+     * #### Example
      * ```kotlin
-     * val m = LibraryManager()
-     * m.logger = Log.Sink { category, level, source, throwable, message ->
+     * val logger = Log.Sink<MyCategory> { category, level, source, throwable, message ->
      *    if (level >= Log.Level.DEBUG) {
      *        println("Event (cat: $category): ${message()}")
      *    }
      * }
      * ```
      *
-     * ### Standard sink
-     *
-     * To log on the standard platform console (or Logcat on Android) use:
-     * ```kotlin
-     * m.logger = Log.Sink.Default()
-     * ```
-     * or customize the filter with:
-     * ```kotlin
-     * m.logger = Log.Sink.Default { category, level ->
-     *    return level >= Log.Level.TRACE
-     * }
-     * ```
-     *
      * @see Implementation.Default
+     * @see Implementation.Null
+     * @see Implementation.Flow
      */
     fun interface Sink<in C : Category> {
 
         /**
-         * Implementation of a log sink.
+         * Available [Sink] implementations.
          */
         companion object Implementation {
 
@@ -213,9 +143,9 @@ object Log {
                 get() = null
 
             /**
-             * A sink that emits log [Event]s.
+             * A sink that emits log [Event]s into a [SharedFlow].
              *
-             * ## Example
+             * #### Example
              * ```kotlin
              * val flow = MutableSharedFlow<Event<Log.Category>>()
              *     .also { flow ->
@@ -225,8 +155,8 @@ object Log {
              *     }
              *
              * // Forward logs from both libraries to the database.
-             * // Note, that the libraries log with different Categories.
-             * // They are flatten to the base `Log.Category`.
+             * // Note that if libraries log using different Category types,
+             * // they are flattened to the base `Log.Category`.
              * val m = LibraryManager() // logger: Log.Sink<LibraryComponent>
              * m.logger = Log.Sink.Flow(flow)
              *
@@ -274,55 +204,20 @@ object Log {
      * A [Sink] that forwards logs to another [Sink].
      *
      * This can be used for internal implementations in [Emitter]s to forward logs to the main
-     * sink.
+     * sink assigned by the application.
      *
-     * ## Example
-     *
-     * ### Library
-     *
+     * #### Example
      * ```kotlin
-     * enum class Component : Log.Category {
-     *    A, B. C
-     * }
-     *
      * class Manager {
-     *    var logger: Log.Sink<Component>? = null
-     *    private val impl = Impl(
-     *       // We can't pass `logger` here, as it's still null and can change over time.
-     *       // Instead, drain the logs into a new sink using a Pipe.
+     *    var logger: Log.Sink<MyCategory>? = Log.Sink.Null
+     *    private val internalComponent = Component(
+     *       // Forward logs to the dynamic logger property above
      *       logger = Log.Pipe { logger }
      *    )
-     *
-     *    fun event() {
-     *       logger?.i(Component.A) { "Some event" }
-     *       impl.execute()
-     *    }
-     *
-     *    private class Impl(
-     *       private val logger: Log.Sink<Component>?
-     *.   ) {
-     *       fun execute() {
-     *          logger?.d(Component.B) { "Executing" }
-     *       }
-     *    }
      * }
      * ```
      *
-     * ### Application
-     *
-     * ```kotlin
-     * val m = Manager()
-     * m.logger = Log.Flow.Default()
-     * m.event()
-     * ```
-     *
-     * #### Output
-     * ```
-     * I [A] Some event
-     * D [B] Executing
-     * ```
-     *
-     * @param sink The sink to forward logs to.
+     * @param sink A lambda that returns the sink to forward logs to.
      * @return A [Sink] that forwards logs to the given [sink].
      */
     @Suppress("FunctionName")
@@ -426,7 +321,7 @@ object Log {
      *    enum class Component : Log.Category {
      *       A, B, C
      *    }
-     *    var logger: Log.Sink<Component>? = null
+     *    var logger: Log.Sink<Component>? = Log.Sink.Null
      * }
      *
      * val m = Manager()
@@ -460,36 +355,15 @@ object Log {
      * An instance of this interface can produce logs.
      *
      * Note, that this interface does not define a [Sink]. The library is free to choose a name
-     * for a log sink, or even have multiple sinks if necessary. Usually, however, it is
-     * recommended to have a single [Sink] emitting logs with some set of categories.
+     * for a log sink, or even have multiple sinks if necessary.
      *
-     * ## Example
-     *
-     * ### Library
-     *
+     * #### Example
      * ```kotlin
-     * enum class LibraryComponent : Log.Category {
-     *    A, B, C
-     * }
+     * class MyManager : Log.Emitter {
+     *    var logger: Log.Sink<MyCategory>? = Log.Sink.Null
      *
-     * class LibraryManager: Log.Emitter {
-     *    /** A log sink to emit logs to. */
-     *    var logger: Log.Sink<LibraryComponent>? = null
-     *
-     *    fun event() {
-     *       logger?.w(LibraryComponent.A) { "Event!!!" }
-     *    }
-     * }
-     * ```
-     *
-     * ### Application
-     *
-     * ```kotlin
-     * val m = LibraryManager()
-     * m.logger = Log.Sink { c, l, s, t, messageBuilder ->
-     *    if (l >= Log.Level.INFO) {
-     *       val message = messageBuilder()
-     *       Napier.d("[$c] ${m()}")
+     *    fun doSomething() {
+     *       logger?.info(MyCategory.A) { "Action performed" }
      *    }
      * }
      * ```

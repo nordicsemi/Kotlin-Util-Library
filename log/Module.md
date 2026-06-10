@@ -56,7 +56,7 @@ Any class can implement `Log.Emitter`. This provides access to shorthand logging
 
 ```kotlin
 class NetworkManager : Log.Emitter {
-    var logger: Log.Sink<MyLibraryCategory>? = null
+    var logger: Log.Sink<MyLibraryCategory>? = Log.Sink.Null // or null
 
     fun connect() {
         // Shorthand for Log.Level.INFO
@@ -75,7 +75,7 @@ every log entry.
 class DeviceManager(
     override val identifier: String // e.g., MAC address, e.g. "AA:BB:CC:DD:EE:FF"
 ) : Log.IdentifiableEmitter<String> {
-    var logger: Log.Sink<MyLibraryCategory>? = null
+    var logger: Log.Sink<MyLibraryCategory>? = Log.Sink.Null // or null
 
     fun update() {
         // The source field in Log.Sink will be "AA:BB:CC:DD:EE:FF"
@@ -148,16 +148,16 @@ Use `Log.Pipe` to forward logs from an internal component to a sink that might b
 
 ```kotlin
 class Parent {
-    var logger: Log.Sink<MyCategory>? = null
+    var logger: Log.Sink<MyCategory>? = Log.Sink.Null
     private val child = Child(logger = Log.Pipe { logger })
 }
 ```
 
 ### Disabling Logs
 
-To completely disable logging, assign `null` (or use `Log.Sink.Disabled()`). 
+To completely disable logging, assign `null` (or use `Log.Sink.Null`). 
 This is highly efficient as it prevents any message lambda creation or evaluation.
 
 ```kotlin
-manager.logger = Log.Sink.Disabled() // Same as manager.logger = null
+manager.logger = Log.Sink.Null // Same as manager.logger = null
 ```
