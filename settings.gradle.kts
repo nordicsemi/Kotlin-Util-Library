@@ -15,6 +15,7 @@ pluginManagement {
                 includeGroupAndSubgroups("com.gradle")
                 includeGroupAndSubgroups("no.nordicsemi")
                 includeGroupAndSubgroups("org.jetbrains")
+                includeGroupAndSubgroups("org.spdx")
             }
         }
         mavenCentral()
@@ -38,7 +39,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         // Use Nordic Gradle Version Catalog with common external libraries versions.
         create("libs") {
-            from("no.nordicsemi.gradle:version-catalog-min-sdk-21:3.0")
+            from("no.nordicsemi.gradle:version-catalog-min-sdk-21:3.1")
         }
     }
 }
