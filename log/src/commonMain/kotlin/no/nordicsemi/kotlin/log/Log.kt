@@ -676,7 +676,7 @@ object Log {
     /**
      * This interface should be implemented by an identifiable object that can produce logs.
      */
-    interface IdentifiableEmitter<ID : Any>: Identifiable<ID>, Emitter {
+    interface IdentifiableEmitter<out ID : Any>: Identifiable<ID>, Emitter {
 
         /**
          * Log a message with the given [category] and [level].
