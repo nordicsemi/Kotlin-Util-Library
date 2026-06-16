@@ -17,6 +17,7 @@ Dokka documentation for all modules can be found [here](https://nordicsemi.githu
 | [`:data`](#data) | Extension methods for `ByteArray`, `Byte`, `Short`, and UUID operations. | ![Maven Central](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/data) |
 | [`:id`](#id) | A simple interface for objects with unique identifiers. | ![Maven Central](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/id) |
 | [`:log`](#log) | A flexible, lightweight logging facade for KMP libraries and apps. | ![Maven Central](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/log) |
+| [`:log-timber`](#log-timber) | Timber sink addon for forwarding `:log` events on Android. | ![Maven Central](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/log-timber) |
 
 ---
 
@@ -136,6 +137,36 @@ manager.logger = Log.Sink.Default { category, level ->
 // Or direct to a SharedFlow for reactive processing
 val logFlow = Log.Sink.Flow<MyCategory>()
 manager.logger = logFlow
+```
+
+---
+
+## Log Timber
+
+Android addon for `:log` that forwards logs to [Timber](https://github.com/JakeWharton/timber).
+
+### Setting up
+
+```kotlin
+implementation("no.nordicsemi.kotlin:log-timber:<version>")
+```
+
+### Usage Example
+
+```kotlin
+import no.nordicsemi.kotlin.log.Log
+import no.nordicsemi.kotlin.log.timber.Timber
+import timber.log.Timber
+
+enum class AppCategory : Log.Category { NETWORK }
+
+fun createLogger(): Log.Sink<AppCategory> {
+    Timber.plant(Timber.DebugTree())
+
+    return Log.Sink.Timber { _, level ->
+        level >= Log.Level.DEBUG
+    }
+}
 ```
 
 ---

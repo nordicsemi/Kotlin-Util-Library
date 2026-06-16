@@ -38,7 +38,7 @@
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
-        <div class="library-version" id="library-version">1.1.0
+        <div class="library-version" id="library-version">1.2.0
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
@@ -93,7 +93,7 @@
   <div class="breadcrumbs"><a href="../../index.html">id</a><span class="delimiter">/</span><a href="../index.html">no.nordicsemi.kotlin.id</a><span class="delimiter">/</span><span class="current">Identifiable</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Identifiable</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Identifiable</a><span class="token operator">&lt;</span><a href="index.html">ID</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span></div><p class="paragraph">An interface for objects that have a unique identifier.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Identifiable</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="index.html">ID</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span></div><p class="paragraph">An interface for objects that have a unique identifier.</p><p class="paragraph">This interface is used to standardize how objects are identified within the library. For example, it is used by the <code class="lang-kotlin">:log</code> module to automatically include a source identifier in log entries when using <code class="lang-kotlin">IdentifiableEmitter</code>.</p><h4 class="tableheader">Type Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":id/commonMain" data-filterable-set=":id/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>ID</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the identifier.</p></div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -110,7 +110,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="identifier.html">identifier</a><span class="token operator">: </span><a href="index.html">ID</a></div><div class="brief "><p class="paragraph">The object identifier.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="identifier.html">identifier</a><span class="token operator">: </span><a href="index.html">ID</a></div><div class="brief "><p class="paragraph">The unique identifier of the object.</p></div></div></div>
                 </div>
               </div>
             </div>
