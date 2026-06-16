@@ -40,7 +40,7 @@ package no.nordicsemi.kotlin.id
  *
  * @param ID The type of the identifier.
  */
-interface Identifiable<ID: Any> {
+interface Identifiable<out ID : Any> {
     /**
      * The unique identifier of the object.
      */
