@@ -33,10 +33,16 @@ package no.nordicsemi.kotlin.id
 
 /**
  * An interface for objects that have a unique identifier.
+ *
+ * This interface is used to standardize how objects are identified within the library.
+ * For example, it is used by the `:log` module to automatically include a source identifier
+ * in log entries when using `IdentifiableEmitter`.
+ *
+ * @param ID The type of the identifier.
  */
 interface Identifiable<ID: Any> {
     /**
-     * The object identifier.
+     * The unique identifier of the object.
      */
     val identifier: ID
 }
