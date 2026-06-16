@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>hasAllBitsCleared</title>
+    <title>Timber</title>
 <link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>
     <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -42,7 +42,7 @@
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
-                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":data/commonMain">common</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true" data-filter=":log-timber/release">release</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
                 <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
@@ -51,11 +51,11 @@
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
-                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":data/commonMain" data-filter=":data/commonMain">
+                                <input type="checkbox" class="checkbox--input" id=":log-timber/release" data-filter=":log-timber/release">
                                 <span class="checkbox--icon"></span>
-                                common
+                                release
                             </label>
                         </li>
                 </ul>
@@ -89,12 +89,12 @@
         </nav>
         <div id="resizer" class="resizer" data-item-type="BAR"></div>
         <div id="main" data-item-type="SECTION" role="main">
-<div class="main-content" data-page-type="member" id="content" pageids="data::no.nordicsemi.kotlin.data//hasAllBitsCleared/kotlin.Byte#kotlin.Int/PointingToDeclaration//527451509">
-  <div class="breadcrumbs"><a href="../index.html">data</a><span class="delimiter">/</span><a href="index.html">no.nordicsemi.kotlin.data</a><span class="delimiter">/</span><span class="current">hasAllBitsCleared</span></div>
+<div class="main-content" data-page-type="member" id="content" pageids="log-timber::no.nordicsemi.kotlin.log.timber//Timber/no.nordicsemi.kotlin.log.Log.Sink.Implementation#kotlin.Function2[TypeParam(bounds=[no.nordicsemi.kotlin.log.Log.Category]),no.nordicsemi.kotlin.log.Log.Level,kotlin.Boolean]/PointingToDeclaration//938125848">
+  <div class="breadcrumbs"><a href="../index.html">log-timber</a><span class="delimiter">/</span><a href="index.html">no.nordicsemi.kotlin.log.timber</a><span class="delimiter">/</span><span class="current">Timber</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>has</span><wbr><span>All</span><wbr><span>Bits</span><wbr><span><span>Cleared</span></span></h1>
+    <h1 class="cover"><span><span>Timber</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":data/commonMain"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/index.html">Byte</a><span class="token punctuation">.</span><a href="has-all-bits-cleared.html"><span class="token function">hasAllBitsCleared</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mask<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-u-byte/index.html">UByte</a><span class="token punctuation">.</span><a href="has-all-bits-cleared.html"><span class="token function">hasAllBitsCleared</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mask<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><p class="paragraph">Returns whether ALL bits that are equal to 1 in the given <a href="has-all-bits-cleared.html">mask</a> are set to 0 in the receiver.</p><p class="paragraph">Example:</p><ul><li><p class="paragraph">0b00001111 hasAllBitsCleared 0b00000111 == false</p></li><li><p class="paragraph">0b00001111 hasAllBitsCleared 0b00001000 == false</p></li><li><p class="paragraph">0b10101010 hasAllBitsCleared 0b00000100 == true</p></li><li><p class="paragraph">0b10101000 hasAllBitsCleared 0b10101010 == false</p></li><li><p class="paragraph">0b10101010 hasAllBitsCleared 0b10000000 == false</p></li></ul><span class="kdoc-tag"><h4 class="">Receiver</h4><p class="paragraph">Byte value.</p></span></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log-timber/release"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-timber.html">C</a><span class="token operator"> : </span><a href="../../log/no.nordicsemi.kotlin.log/-log/-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../../log/no.nordicsemi.kotlin.log/-log/-sink/-implementation/index.html">Log.Sink.Implementation</a><span class="token punctuation">.</span><a href="-timber.html"><span class="token function">Timber</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">filter<span class="token operator">: </span><span class="token punctuation">(</span><a href="-timber.html">C</a><span class="token punctuation">, </span><a href="../../log/no.nordicsemi.kotlin.log/-log/-level/index.html">Log.Level</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>{ _, level -&gt; level &gt;= Log.Level.INFO }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../log/no.nordicsemi.kotlin.log/-log/-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="-timber.html">C</a><span class="token operator">&gt;</span></div><p class="paragraph">Timber log sink.</p><p class="paragraph">Logs are redirected to <a href="https://github.com/JakeWharton/timber">Timber</a>.</p><p class="paragraph">The Timber tag is composed of: <code class="lang-kotlin">"${category.name}"</code> or <code class="lang-kotlin">"${category.name} (${source})"</code>, if <code class="lang-kotlin">source</code> is not <code class="lang-kotlin">null</code>.</p><p class="paragraph">Remember to <a href="https://github.com/JakeWharton/timber/blob/17cfcbff764c510371f64d5118c235dbe91f75c3/timber-sample/src/main/java/com/example/timber/ExampleApp.java#L16-L20">plant a <code class="lang-kotlin">Timber.Tree</code></a> to get logs.</p><p class="paragraph"><i>There are no Tree implementations installed by default because every time you log in production, a puppy dies.</i> -J. W.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":log-timber/release" data-filterable-set=":log-timber/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>filter</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Log level filter.</p></div></div></div></div></div></div></div>
 </div>
     <div class="footer">
         <div class="footer--container">

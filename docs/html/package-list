@@ -7,3 +7,5 @@ module:id
 no.nordicsemi.kotlin.id
 module:log
 no.nordicsemi.kotlin.log
+module:log-timber
+no.nordicsemi.kotlin.log.timber

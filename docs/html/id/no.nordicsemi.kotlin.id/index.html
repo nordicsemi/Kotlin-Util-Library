@@ -38,7 +38,7 @@
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
-        <div class="library-version" id="library-version">1.1.0
+        <div class="library-version" id="library-version">1.2.0
         </div>
         <div class="navigation-controls">
         <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
@@ -93,7 +93,7 @@
   <div class="breadcrumbs"><a href="../index.html">id</a><span class="delimiter">/</span><span class="current">no.nordicsemi.kotlin.id</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
-    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><p class="paragraph">This package contains the <code class="lang-kotlin">Identifiable</code> type.</p></div></div>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><p class="paragraph">Contains the <a href="-identifiable/index.html">Identifiable</a> interface.</p><h2 class="">Usage</h2><p class="paragraph">Implement this interface in any class that requires a unique identity.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class Device(override val identifier: String) : Identifiable&lt;String&gt;</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The <a href="-identifiable/index.html">Identifiable</a> interface is particularly useful when combined with other modules, such as <code class="lang-kotlin">:log</code>,  to provide automatic context to operations (e.g., source-tagged logging).</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
@@ -110,7 +110,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-identifiable/index.html">Identifiable</a><span class="token operator">&lt;</span><a href="-identifiable/index.html">ID</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">An interface for objects that have a unique identifier.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":id/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-identifiable/index.html">Identifiable</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="-identifiable/index.html">ID</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">An interface for objects that have a unique identifier.</p></div></div></div>
                 </div>
               </div>
             </div>
