@@ -49,4 +49,5 @@ rootProject.name = "Kotlin Util Library"
 include(":data")
 include(":id")
 include(":log")
+include(":log-timber")
  
