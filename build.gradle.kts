@@ -3,10 +3,14 @@ plugins {
     // This plugin is added here only for readability.
     // It is automatically applied by the `libs.plugins.nordic.publish.kmp` plugin below.
     alias(libs.plugins.kotlin.multiplatform) apply false
-    // This plugins configures Android KMP mocule.
+    // This plugins configures Android library module.
+    alias(libs.plugins.nordic.android.library) apply false
+    // This plugins configures Android KMP module.
     alias(libs.plugins.nordic.android.kmp.library) apply false
     // Set the Kotlin version and JVM toolchain in one place for all modules, including KMP modules.
     alias(libs.plugins.nordic.kotlin) apply false
+    // Required for publishing Android modules on Maven Central.
+    alias(libs.plugins.nordic.publish.android) apply false
     // Required for publishing KMP modules on Maven Central.
     alias(libs.plugins.nordic.publish.kmp) apply false
     // This applies Nordic look & feel to generated Dokka documentation.

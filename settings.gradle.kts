@@ -39,7 +39,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         // Use Nordic Gradle Version Catalog with common external libraries versions.
         create("libs") {
-            from("no.nordicsemi.gradle:version-catalog-min-sdk-21:3.1")
+            from("no.nordicsemi.gradle:version-catalog-min-sdk-21:3.1.1")
         }
     }
 }
@@ -49,4 +49,5 @@ rootProject.name = "Kotlin Util Library"
 include(":data")
 include(":id")
 include(":log")
+include(":log-timber")
  

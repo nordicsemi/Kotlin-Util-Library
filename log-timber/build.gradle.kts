@@ -29,20 +29,35 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package no.nordicsemi.kotlin.id
+plugins {
+    alias(libs.plugins.nordic.android.library)
+    alias(libs.plugins.nordic.kotlin)
+    alias(libs.plugins.nordic.publish.android)
+}
 
-/**
- * An interface for objects that have a unique identifier.
- *
- * This interface is used to standardize how objects are identified within the library.
- * For example, it is used by the `:log` module to automatically include a source identifier
- * in log entries when using `IdentifiableEmitter`.
- *
- * @param ID The type of the identifier.
- */
-interface Identifiable<ID: Any> {
-    /**
-     * The unique identifier of the object.
-     */
-    val identifier: ID
+group = "no.nordicsemi.kotlin"
+
+nordicPublishing {
+    POM_ARTIFACT_ID = "log-timber"
+    POM_NAME = "Timber addon for the logging subsystem."
+    POM_DESCRIPTION = "Timber addon for the logging subsystem for Android."
+    POM_URL = "https://github.com/nordicsemi/Kotlin-Util-Library/"
+    POM_SCM_URL = "https://github.com/nordicsemi/Kotlin-Util-Library/"
+    POM_SCM_CONNECTION = "scm:git@github.com:nordicsemi/Kotlin-Util-Library.git"
+    POM_SCM_DEV_CONNECTION = "scm:git@github.com:nordicsemi/Kotlin-Util-Library.git"
+}
+
+android {
+    namespace = "no.nordicsemi.kotlin.log.timber"
+}
+
+dependencies {
+    api(project(":log"))
+    api(libs.timber)
+}
+
+dokka {
+    dokkaSourceSets.configureEach {
+        includes.from("Module.md")
+    }
 }
