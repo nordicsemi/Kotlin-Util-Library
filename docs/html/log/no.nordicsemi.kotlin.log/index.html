@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>no.nordicsemi.kotlin.log</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../index.html" tabindex="1">
+                    Kotlin Util Library
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">1.2.0
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":log/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":log/commonMain" data-filter=":log/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Kotlin Util Library
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="log::no.nordicsemi.kotlin.log////PointingToDeclaration//905729725">
+  <div class="breadcrumbs"><a href="../index.html">log</a><span class="delimiter">/</span><span class="current">no.nordicsemi.kotlin.log</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><p class="paragraph">Contains the core logging API, including the <code class="lang-kotlin">Log</code> facade, <code class="lang-kotlin">Sink</code>, and <code class="lang-kotlin">Emitter</code> interfaces.</p><h2 class="">Key Features</h2><ul><li><p class="paragraph"><strong>Lazy Evaluation</strong>: Log messages are only computed if they pass the sink's filters.</p></li><li><p class="paragraph"><strong>KMP Support</strong>: Works across Android, JVM, iOS, and macOS.</p></li><li><p class="paragraph"><strong>Strong Typing</strong>: Uses categories defined by the library modules for better filtering.</p></li><li><p class="paragraph"><strong>Identifiable Emitters</strong>: Automatically includes source identifiers for multi-instance components.</p></li><li><p class="paragraph"><strong>Coroutines Integration</strong>: Built-in support for directing logs to a <code class="lang-kotlin">SharedFlow</code>.</p></li></ul><h2 class="">Architecture Overview</h2><p class="paragraph">The subsystem consists of three main components:</p><ol><li><p class="paragraph"><code class="strong lang-kotlin"><strong>Log.Category</strong></code>: Defines <i>what</i> is being logged (e.g., "GATT", "STORAGE").</p></li><li><p class="paragraph"><code class="strong lang-kotlin"><strong>Log.Emitter</strong></code>: Defines <i>who</i> is producing logs.</p></li><li><p class="paragraph"><code class="strong lang-kotlin"><strong>Log.Sink</strong></code>: Defines <i>where</i> the logs go (e.g., Logcat, console, database).</p></li></ol><div class="sample-container"><pre><code class="block lang-text" theme="idea">[Log.Emitter] --(Log.Event)--&gt; [Log.Sink]</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h2 class="">Library Guide (Log Producers)</h2><p class="paragraph">Libraries should define their own categories and use the <code class="lang-kotlin">Log.Emitter</code> interface.</p><h3 class="">1. Define Categories</h3><p class="paragraph">Categories are typically defined as an <code class="lang-kotlin">enum class</code> within the library module.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">enum class MyLibraryCategory : Log.Category {<br>    NETWORK,<br>    DATABASE,<br>    UI<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">2. Implement an Emitter</h3><p class="paragraph">Any class can implement <code class="lang-kotlin">Log.Emitter</code>. This provides access to shorthand logging methods (<code class="lang-kotlin">i()</code>, <code class="lang-kotlin">d()</code>, <code class="lang-kotlin">e()</code>, etc.).</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class NetworkManager : Log.Emitter {<br>    var logger: Log.Sink&lt;MyLibraryCategory&gt;? = Log.Sink.Null // or null<br><br>    fun connect() {<br>        // Shorthand for Log.Level.INFO<br>        logger?.i(MyLibraryCategory.NETWORK) { "Connecting to server..." }<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">3. Identifiable Emitters</h3><p class="paragraph">For components where multiple instances exist (e.g., several connected devices),  use <code class="lang-kotlin">Log.IdentifiableEmitter</code>. This automatically includes the component's <code class="lang-kotlin">identifier</code> in  every log entry.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class DeviceManager(<br>    override val identifier: String // e.g., MAC address, e.g. "AA:BB:CC:DD:EE:FF"<br>) : Log.IdentifiableEmitter&lt;String&gt; {<br>    var logger: Log.Sink&lt;MyLibraryCategory&gt;? = Log.Sink.Null // or null<br><br>    fun update() {<br>        // The source field in Log.Sink will be "AA:BB:CC:DD:EE:FF"<br>        logger?.d(MyLibraryCategory.DATABASE) { "Updating record" }<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h2 class="">Application Guide (Log Consumers)</h2><p class="paragraph">Applications consume logs by assigning a <code class="lang-kotlin">Log.Sink</code> to the library's emitter.</p><h3 class="">1. Using the Default Sink</h3><p class="paragraph">The library provides a platform-specific default sink that logs to the standard console (e.g., Logcat on Android).</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val manager = NetworkManager()<br><br>// Default logs INFO and above<br>manager.logger = Log.Sink.Default()<br><br>// Custom filter: log everything from DEBUG and above<br>manager.logger = Log.Sink.Default { category, level -&gt;<br>    level &gt;= Log.Level.DEBUG<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">2. Reactive Logging with Flow</h3><p class="paragraph">Direct logs into a <code class="lang-kotlin">SharedFlow</code> for reactive processing or UI display.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val logFlow = Log.Sink.Flow&lt;MyLibraryCategory&gt;()<br><br>manager.logger = logFlow<br><br>// Consume logs as a Flow<br>logFlow<br>    .onEach { event -&gt;<br>        println("${event.level.n} [${event.category.name}]: ${event.message}")<br>    }<br>    .launchIn(lifecycleScope)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">3. Custom Sink Implementation</h3><p class="paragraph">Implement the <code class="lang-kotlin">Log.Sink</code> interface to redirect logs to 3rd-party libraries like Napier or a custom database.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">manager.logger = Log.Sink { category, level, source, throwable, messageBuilder -&gt;<br>    if (level &gt;= Log.Level.WARN) {<br>        val tag = source?.let { "${category.name} | $it" } ?: category.name<br>        val message = messageBuilder() // Lazy evaluation happens here<br>        <br>        Napier.log(level.toNapierPriority(), tag, throwable, message)<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h2 class="">Utilities</h2><h3 class="">Relay</h3><p class="paragraph">Use <code class="lang-kotlin">Emitter.Relay</code> to forward logs from an internal component to a sink that might be updated later.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">class Parent: Log.Emitter {<br>    var logger: Log.Sink&lt;MyCategory&gt;? = Log.Sink.Null<br>    private val child = Child(logger = Relay { logger })<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h3 class="">Disabling Logs</h3><p class="paragraph">To completely disable logging, assign <code class="lang-kotlin">null</code> (or use <code class="lang-kotlin">Log.Sink.Null</code>).  This is highly efficient as it prevents any message lambda creation or evaluation.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">manager.logger = Log.Sink.Null // Same as manager.logger = null</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h2 class="">Multiple Emitters</h2><p class="paragraph">In some cases an app uses multiple libraries, each emitting logs with their own categories.</p><p class="paragraph">Consider this example:</p><h4 class="">Library / Module A</h4><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">enum class Layer: Log.Category {<br>    TRANSPORT, GATT<br>}<br><br>class Manager: Log.Emitter {<br>    var logger: Log.Sink&lt;Module&gt;? = Log.Sink.Null<br><br>    fun event() {<br>        logger?.t(Module.TRANSPORT) { "event started" }<br>        try {<br>           // [...]<br>        } catch (e: Exception) {<br>            logger?.i(Module.TRANSPORT, e) { "event failed" }<br>        }<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="">Library / Module B</h4><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">enum class Module: Log.Category {<br>    HEART_RATE, BATTERY,  <br>}<br><br>// Some inner implementation<br>internal class BatteryManager(val logger: Log.Sink&lt;YourCat&gt;): Log.Emitter {<br>    // [...]<br>    <br>    fun checkLevel() {<br>        if (isLowLevel()) {<br>            logger.w(Module.BATTERY) { "Battery level is low!" }<br>        }<br>    }<br>}<br><br>class DeviceService(<br>    override val identifier: Int<br>): Log.IdentifiableEmitter&lt;Int&gt; {<br>    var logger: Log.Sink&lt;YourCat&gt;? = Log.Sink.Null<br>    <br>    val bm = BatteryManager(<br>        logger = Relay { logger }<br>    )<br>    <br>    fun connect() {<br>        logger?.i(Module.HEART_RATE) { "Connecting" }<br>        // [...]<br>        bm.checkLevel()<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="">Application</h4><p class="paragraph">An app, that depends on both libraries, can define a common <code class="lang-kotlin">Sink</code>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val manager = Manager()                                // emits categories from `Layer`<br>val deviceService = DeviceService("AA:BB:CC:DD:EE:FF") // emits categories from `Module`<br><br>// Sink for logs with any category:<br>val sink = Log.Sink.Default&lt;Log.Category&gt; { category, level -&gt;<br>    // `category` is a Log.Category<br>    // Get name using `category.name`<br>    level &gt;= Log.Level.WARN // Log only WARN and above<br>}<br>manager.logger = sink<br>deviceService.logger = sink</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="877015327%2FClasslikes%2F905729725" anchor-label="Log" id="877015327%2FClasslikes%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-log/index.html"><span><span>Log</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="877015327%2FClasslikes%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-log/index.html">Log</a></div><div class="brief "><p class="paragraph">The <code class="lang-kotlin">Log</code> component provides a simple logging API.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright © 2022 - 2026 Nordic Semiconductor ASA. All Rights Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

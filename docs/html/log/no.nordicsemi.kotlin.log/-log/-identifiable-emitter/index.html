@@ -1,0 +1,355 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>IdentifiableEmitter</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    Kotlin Util Library
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">1.2.0
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":log/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":log/commonMain" data-filter=":log/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    Kotlin Util Library
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="log::no.nordicsemi.kotlin.log/Log.IdentifiableEmitter///PointingToDeclaration//905729725">
+  <div class="breadcrumbs"><a href="../../../index.html">log</a><span class="delimiter">/</span><a href="../../index.html">no.nordicsemi.kotlin.log</a><span class="delimiter">/</span><a href="../index.html">Log</a><span class="delimiter">/</span><span class="current">IdentifiableEmitter</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Identifiable</span><wbr><span><span>Emitter</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">IdentifiableEmitter</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="index.html">ID</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span> : <a href="../../../../id/no.nordicsemi.kotlin.id/-identifiable/index.html">Identifiable</a><span class="token operator">&lt;</span><a href="index.html">ID</a><span class="token operator">&gt; </span>, <a href="../-emitter/index.html">Log.Emitter</a></div><p class="paragraph">This interface should be implemented by an identifiable object that can produce logs.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="75624584%2FProperties%2F905729725" anchor-label="identifier" id="75624584%2FProperties%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#75624584%2FProperties%2F905729725"><span><span>identifier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75624584%2FProperties%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="index.html#75624584%2FProperties%2F905729725">identifier</a><span class="token operator">: </span><a href="index.html">ID</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="606554635%2FFunctions%2F905729725" anchor-label="d" id="606554635%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/d.html"><span><span>d</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="606554635%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/d.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/d.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/d.html"><span class="token function">d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/d.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/d.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/d.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/d.html"><span class="token function">d</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/d.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-d-e-b-u-g/index.html">Level.DEBUG</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-197708885%2FFunctions%2F905729725" anchor-label="debug" id="-197708885%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/debug.html"><span><span>debug</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-197708885%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/debug.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/debug.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/debug.html"><span class="token function">debug</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/debug.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/debug.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/debug.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/debug.html"><span class="token function">debug</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/debug.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-d-e-b-u-g/index.html">Level.DEBUG</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1541493483%2FFunctions%2F905729725" anchor-label="e" id="1541493483%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/e.html"><span><span>e</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1541493483%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/e.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/e.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/e.html"><span class="token function">e</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/e.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/e.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/e.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/e.html"><span class="token function">e</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/e.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-e-r-r-o-r/index.html">Level.ERROR</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1487522955%2FFunctions%2F905729725" anchor-label="error" id="1487522955%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/error.html"><span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1487522955%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/error.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/error.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/error.html"><span class="token function">error</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/error.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/error.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/error.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/error.html"><span class="token function">error</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/error.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-e-r-r-o-r/index.html">Level.ERROR</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="986281579%2FFunctions%2F905729725" anchor-label="i" id="986281579%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/i.html"><span><span>i</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="986281579%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/i.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/i.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/i.html"><span class="token function">i</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/i.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/i.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/i.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/i.html"><span class="token function">i</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/i.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-i-n-f-o/index.html">Level.INFO</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1664625257%2FFunctions%2F905729725" anchor-label="info" id="-1664625257%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/info.html"><span><span>info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1664625257%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/info.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/info.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/info.html"><span class="token function">info</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/info.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/info.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/info.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/info.html"><span class="token function">info</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/info.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-i-n-f-o/index.html">Level.INFO</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532861217%2FFunctions%2F905729725" anchor-label="log" id="-532861217%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="log.html"><span><span>log</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532861217%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="log.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="log.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="log.html"><span class="token function">log</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="log.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">level<span class="token operator">: </span><a href="../-level/index.html">Log.Level</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A shortcut for logging only a <a href="log.html">throwable</a>. The <code class="lang-kotlin">message</code> is taken from the <a href="log.html">throwable</a>.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="log.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="log.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="log.html"><span class="token function">log</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="log.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">level<span class="token operator">: </span><a href="../-level/index.html">Log.Level</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Log a message with the given <a href="log.html">category</a> and <a href="log.html">level</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1145019352%2FFunctions%2F905729725" anchor-label="Relay" id="-1145019352%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-relay.html"><span><span>Relay</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1145019352%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-relay.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="-relay.html"><span class="token function">Relay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sink<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="-relay.html">C</a><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="-relay.html">C</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Relay is a <a href="../-sink/index.html">Sink</a> that forwards logs to another <code class="lang-kotlin">Sink</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1614292981%2FFunctions%2F905729725" anchor-label="t" id="-1614292981%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/t.html"><span><span>t</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1614292981%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/t.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/t.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/t.html"><span class="token function">t</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/t.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/t.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/t.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/t.html"><span class="token function">t</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/t.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-t-r-a-c-e/index.html">Level.TRACE</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="835272811%2FFunctions%2F905729725" anchor-label="trace" id="835272811%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/trace.html"><span><span>trace</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="835272811%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/trace.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/trace.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/trace.html"><span class="token function">trace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/trace.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/trace.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/trace.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/trace.html"><span class="token function">trace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/trace.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-t-r-a-c-e/index.html">Level.TRACE</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="255584715%2FFunctions%2F905729725" anchor-label="v" id="255584715%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/v.html"><span><span>v</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="255584715%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/v.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/v.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/v.html"><span class="token function">v</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/v.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/v.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/v.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/v.html"><span class="token function">v</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/v.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-t-r-a-c-e/index.html">Level.TRACE</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1952052299%2FFunctions%2F905729725" anchor-label="verbose" id="1952052299%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/verbose.html"><span><span>verbose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952052299%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/verbose.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/verbose.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/verbose.html"><span class="token function">verbose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/verbose.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/verbose.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/verbose.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/verbose.html"><span class="token function">verbose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/verbose.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-t-r-a-c-e/index.html">Level.TRACE</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1190523563%2FFunctions%2F905729725" anchor-label="w" id="1190523563%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/w.html"><span><span>w</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1190523563%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/w.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/w.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/w.html"><span class="token function">w</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/w.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/w.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/w.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/w.html"><span class="token function">w</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/w.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-w-a-r-n/index.html">Level.WARN</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1504844985%2FFunctions%2F905729725" anchor-label="warn" id="-1504844985%2FFunctions%2F905729725" data-filterable-set=":log/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":log/commonMain" data-filterable-set=":log/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-emitter/warn.html"><span><span>warn</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1504844985%2FFunctions%2F905729725"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":log/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/warn.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/warn.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/warn.html"><span class="token function">warn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/warn.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-emitter/warn.html">C</a><span class="token operator"> : </span><a href="../-category/index.html">Log.Category</a><span class="token operator">&gt; </span><a href="../-sink/index.html">Log.Sink</a><span class="token operator">&lt;</span><a href="../-emitter/warn.html">C</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-emitter/warn.html"><span class="token function">warn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">category<span class="token operator">: </span><a href="../-emitter/warn.html">C</a><span class="token punctuation">, </span></span><span class="parameter ">throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Convenience methods for logging at <a href="../-level/-w-a-r-n/index.html">Level.WARN</a> level.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>Copyright © 2022 - 2026 Nordic Semiconductor ASA. All Rights Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
