@@ -5,10 +5,6 @@ Timber addon for the logging facade.
 The `:log-timber` module provides a `Log.Sink` implementation that forwards logs from `:log`
 to [Timber](https://github.com/JakeWharton/timber).
 
-# Package no.nordicsemi.kotlin.log.timber
-
-Contains the `Log.Sink.Timber(...)` extension function.
-
 ## What it does
 
 - Bridges `no.nordicsemi.kotlin.log.Log` events to Timber.
@@ -44,3 +40,7 @@ fun configureLogging(): Log.Sink<AppCategory> {
     }
 }
 ```
+
+# Package no.nordicsemi.kotlin.log.timber
+
+Contains the `Log.Sink.Timber(...)` extension function.

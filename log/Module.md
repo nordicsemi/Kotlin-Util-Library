@@ -6,10 +6,6 @@ The `:log` module provides a flexible, lightweight logging subsystem designed sp
 KMP libraries and applications. It separates log production (Emitters) from log consumption (Sinks), 
 allowing libraries to remain agnostic of the final logging implementation.
 
-# Package no.nordicsemi.kotlin.log
-
-Contains the core logging API, including the `Log` facade, `Sink`, and `Emitter` interfaces.
-
 ## Key Features
 
 - **Lazy Evaluation**: Log messages are only computed if they pass the sink's filters.
@@ -233,3 +229,7 @@ val sink = Log.Sink.Default<Log.Category> { category, level ->
 manager.logger = sink
 deviceService.logger = sink
 ```
+
+# Package no.nordicsemi.kotlin.log
+
+Contains the core logging API, including the `Log` facade, `Sink`, and `Emitter` interfaces.
